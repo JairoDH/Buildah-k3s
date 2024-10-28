@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: WordPress
+    type: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: WordPress
+      type: database
+  template:
+    metadata:
+      labels:
+        app: WordPress
+        type: database
+    spec:
+      containers:
+        - name: MySQL
+          image: mariadb:latest
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MARIADB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: WPdates
+                  key: bd_user
+            - name: MARIADB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: WPbdname
+                  key: bd_name
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: WPpass
+                  key: bd_psswd
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: WPpass
+                  key: bd_rootpsswd

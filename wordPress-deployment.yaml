@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: WordPress-deployment
+  labels:
+    app: WordPress
+    type: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: WordPress
+      type: frontend
+  template:
+    metadata:
+      labels:
+        app: WordPress
+        type: frontend
+    spec:
+      containers:
+        - name: WordPress
+          image: jairodh/wordpress                           
+          ports:
+            - containerPort: 80
+              name: http-port
+            - containerPort: 443
+              name: https-port
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: mysql-service
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: WPdates   
+                  key: bd_user
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: WPpass
+                  key: bd_psswd
+            - name: WORDPRESS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: WPbdname
+                  key: bd_name

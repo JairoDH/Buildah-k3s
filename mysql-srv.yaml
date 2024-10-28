@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  labels:
+    app: WordPress
+    type: database
+spec:
+  selector:
+    app: WordPress
+    type: database
+  ports:
+  - port: 3306
+    targetPort: db-port
+  type: ClusterIP
