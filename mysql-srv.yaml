@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: mysql-service
   labels:
-    app: WordPress
+    app: wordpress
     type: database
 spec:
   selector:
-    app: WordPress
+    app: wordpress
     type: database
   ports:
   - port: 3306

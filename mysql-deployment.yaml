@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   name: mysql-deployment
   labels:
-    app: WordPress
+    app: wordpress
     type: database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: WordPress
+      app: wordpress
       type: database
   template:
     metadata:
       labels:
-        app: WordPress
+        app: wordpress
         type: database
     spec:
       containers:
-        - name: MySQL
+        - name: mysql
           image: mariadb:latest
           ports:
             - containerPort: 3306
@@ -27,20 +27,20 @@ spec:
             - name: MARIADB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: WPdates
+                  name: wpdates
                   key: bd_user
             - name: MARIADB_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: WPbdname
+                  name: wpdates
                   key: bd_name
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: WPpass
-                  key: bd_psswd
+                  name: wppass
+                  key: bd_password
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: WPpass
-                  key: bd_rootpsswd
+                  name: wppass
+                  key: bd_rootpassword

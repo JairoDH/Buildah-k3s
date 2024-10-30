@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: WordPress-service
+  name: wordpress-service
   labels:
-    app: WordPress
+    app: wordpress
     type: frontend
 spec:
   selector:
-    app: WordPress
+    app: wordpress
     type: frontend
   ports:
   - name: http-sv-port

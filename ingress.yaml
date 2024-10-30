@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: wordpress-ingress
   labels:
-    app: WordPress
+    app: wordpress
     type: frontend
 spec:
   rules:

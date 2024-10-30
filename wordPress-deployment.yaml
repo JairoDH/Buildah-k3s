@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: WordPress-deployment
+  name: wordpress-deployment
   labels:
-    app: WordPress
+    app: wordpress
     type: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: WordPress
+      app: wordpress
       type: frontend
   template:
     metadata:
       labels:
-        app: WordPress
+        app: wordpress
         type: frontend
     spec:
       containers:
-        - name: WordPress
-          image: jairodh/wordpress                           
+        - name: wordpress
+          image: jairodh/wpimagen 
           ports:
             - containerPort: 80
               name: http-port
@@ -31,15 +31,15 @@ spec:
             - name: WORDPRESS_DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: WPdates   
+                  name: wpdates   
                   key: bd_user
             - name: WORDPRESS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: WPpass
-                  key: bd_psswd
+                  name: wppass
+                  key: bd_password
             - name: WORDPRESS_DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: WPbdname
+                  name: wpdates
                   key: bd_name
