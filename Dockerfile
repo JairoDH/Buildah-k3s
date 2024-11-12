@@ -21,8 +21,9 @@ RUN apt-get update && apt-get install -y \
 RUN curl -o wordpress.zip https://wordpress.org/latest.zip && \
     unzip wordpress.zip && \
     mv wordpress/* /var/www/html/ && \
-    rm -rf wordpress wordpress.zip
-
+    rm -rf wordpress wordpress.zip \
+    rm -rf /var/www/html/index.html
+	
 # Configurar los permisos
 RUN chown -R www-data:www-data /var/www/html
 

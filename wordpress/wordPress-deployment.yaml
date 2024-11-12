@@ -4,34 +4,34 @@ metadata:
   name: wordpress-deployment
   labels:
     app: wordpress
-    type: frontend
+    tier: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: wordpress
-      type: frontend
+      tier: frontend
   template:
     metadata:
       labels:
         app: wordpress
-        type: frontend
+        tier: frontend
     spec:
       containers:
         - name: wordpress
-          image: jairodh/wpimagen 
+          image: jairodh/wpimagen
           ports:
             - containerPort: 80
               name: http-port
-            - containerPort: 443
-              name: https-port
+ #           - containerPort: 443
+  #            name: https-port
           env:
             - name: WORDPRESS_DB_HOST
               value: mysql-service
             - name: WORDPRESS_DB_USER
               valueFrom:
                 configMapKeyRef:
-                  name: wpdates   
+                  name: wpdates
                   key: bd_user
             - name: WORDPRESS_DB_PASSWORD
               valueFrom:

@@ -4,18 +4,18 @@ metadata:
   name: mysql-deployment
   labels:
     app: wordpress
-    type: database
+    tier: database
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: wordpress
-      type: database
+      tier: database
   template:
     metadata:
       labels:
         app: wordpress
-        type: database
+        tier: database
     spec:
       containers:
         - name: mysql
