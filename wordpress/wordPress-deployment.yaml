@@ -20,9 +20,6 @@ spec:
       containers:
         - name: wordpress
           image: jairodh/wpimagen
-          volumeMounts:
-            - name: wordpress-storage
-              mountPath: /var/www/html
           ports:
             - containerPort: 80
               name: http-port
@@ -47,6 +44,6 @@ spec:
                   name: wpdates
                   key: bd_name
       volumes:
-        - name: wordpress-storage
+        - name: wordpress-vol
           persistentVolumeClaim:
-            claimName: pvc-wordpress
+            claimName: wordpress-pvc
