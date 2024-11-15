@@ -3,15 +3,18 @@ kind: Ingress
 metadata:
   name: wordpress-ingress
   namespace: default
+  labels:
+     app: wordpress
+     tier: frontend
   annotations:
-    traefik.ingress.kubernetes.io/affinity: "true"
+     traefik.ingress.kubernetes.io/affinity: "true"
 spec:
   rules:
-    - host: www.veinttidos.org
-      http:
+  - host: www.veinttidos.org
+    http:
         paths:
         - path: /
-          pathType: Prefix	
+          pathType: Prefix
           backend:
              service:
                 name: wordpress-service

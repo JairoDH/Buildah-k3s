@@ -20,6 +20,9 @@ spec:
       containers:
         - name: mysql
           image: mariadb:latest
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
           ports:
             - containerPort: 3306
               name: db-port
@@ -44,3 +47,7 @@ spec:
                 secretKeyRef:
                   name: wppass
                   key: bd_rootpassword
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: pvc-mysql
