@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -y \
 
 # Descargar WordPress
 RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
-    mv /tmp/repo/Keptn-k3s/wordpress/* /var/www/html && \
-    rm -rf /tmp/repo/* /var/www/html/index.html
+    mv /tmp/repo/wordpress/* /var/www/html && \
+    rm -rf /tmp/repo && \
+    rm -rf /var/www/html/index.html
  
 # Configurar los permisos
 RUN chown -R www-data:www-data /var/www/html
