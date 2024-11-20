@@ -13,17 +13,14 @@ RUN apt-get update && apt-get install -y \
     mariadb-client \
     php \
     php-mysql \
-    curl \
-    unzip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Descargar WordPress
-RUN curl -o wordpress.zip https://wordpress.org/latest.zip && \
-    unzip wordpress.zip && \
-    mv wordpress/* /var/www/html && \
-    rm -rf wordpress wordpress.zip && \
-    rm -rf /var/www/html/index.html
-	
+RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
+    mv /tmp/repo/Keptn-k3s/wordpress/* /var/www/html && \
+    rm -rf /tmp/repo/* /var/www/html/index.html
+ 
 # Configurar los permisos
 RUN chown -R www-data:www-data /var/www/html
 
