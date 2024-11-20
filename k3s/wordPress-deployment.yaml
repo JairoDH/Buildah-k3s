@@ -1,13 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress-deployment
-  namespace: wordpress
+  name: wordpress
   labels:
     app: wordpress
     type: frontend
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+      type: frontend
   template:
     metadata:
       labels:
@@ -40,10 +43,10 @@ spec:
                 configMapKeyRef:
                   name: wpdates
                   key: bd_name
-          volumeMounts:
-            - name: pvc-wordpress
-              mountPath: /var/www/html
-      volumes:
-        - name: pvc-wordpress
-          persistentVolumeClaim:
-            claimName: pvc-wordpress
+     #     volumeMounts:
+      #      - name: pvc-wordpress
+       #       mountPath: /var/www/html
+    #  volumes:
+     #   - name: pvc-wordpress
+      #    persistentVolumeClaim:
+       #     claimName: pvc-wordpress

@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
-  namespace: wordpress
+  name: mysql
   labels:
-    app: wordpress
+    app: mysql
     type: database
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      type: database
   template:
     metadata:
       labels:
-        app: wordpress
+        app: mysql
         type: database
     spec:
       containers:
-        - name: wordpress
+        - name: mysql
           image: mariadb
           ports:
             - containerPort: 3306
