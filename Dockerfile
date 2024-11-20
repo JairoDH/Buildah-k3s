@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y \
 # Descargar WordPress
 RUN curl -o wordpress.zip https://wordpress.org/latest.zip && \
     unzip wordpress.zip && \
-    mv wordpress/* /var/www/html/ && \
-    rm -rf wordpress wordpress.zip \
+    mv wordpress/* /var/www/html && \
+    rm -rf wordpress wordpress.zip && \
     rm -rf /var/www/html/index.html
 	
 # Configurar los permisos

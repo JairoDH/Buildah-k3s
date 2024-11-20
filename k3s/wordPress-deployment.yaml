@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+  namespace: wordpress
+  labels:
+    app: wordpress
+    type: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        type: frontend
+    spec:
+      containers:
+        - name: wordpress
+          image: jairodh/wpimagen
+          ports:
+            - containerPort: 80
+              name: http-port
+ #          - containerPort: 443
+  #            name: https-port
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: mysql-service
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_user
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wppass
+                  key: bd_password
+            - name: WORDPRESS_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_name
+          volumeMounts:
+            - name: pvc-wordpress
+              mountPath: /var/www/html
+      volumes:
+        - name: pvc-wordpress
+          persistentVolumeClaim:
+            claimName: pvc-wordpress

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: wordpress
+  labels:
+    app: wordpress
+    type: database
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        type: database
+    spec:
+      containers:
+        - name: wordpress
+          image: mariadb
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MARIADB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_user
+            - name: MARIADB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_name
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wppass
+                  key: bd_password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wppass
+                  key: bd_rootpassword
+          volumeMounts: 
+            - name: mysql-vol
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-vol
+          persistentVolumeClaim:
+            claimName: mysql-pvc
