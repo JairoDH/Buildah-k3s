@@ -6,7 +6,7 @@ metadata:
     app: wordpress
     type: frontend
 spec:
-  ingressClassName: nginx
+#  ingressClassName: nginx
   rules:
   - host: www.veinttidos.org
     http:
