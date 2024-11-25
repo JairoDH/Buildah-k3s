@@ -18,3 +18,25 @@ spec:
              name: wordpress-service
              port:
                number: 80
+---
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keptn-bridge-ingress
+  namespace: keptn-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: keptn.veinttidos.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bridge
+            port:
+              number: 8080
+

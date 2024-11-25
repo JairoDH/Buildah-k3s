@@ -1,0 +1,524 @@
+/*
+Theme Name: GlobalNews
+Theme URI:  https://afthemes.com/products/globalnews/
+Author:     AF themes
+Author URI: https://afthemes.com/
+Description: GlobalNews is a sleek, high-performance WordPress theme designed for blog, magazine, and news publishers who want a striking dark theme. Offering full compatibility with major page builders like Elementor, Beaver Builder, Brizy, Visual Composer, Divi, and SiteOrigin, GlobalNews provides unmatched design flexibility. It’s fully responsive, SEO-optimized, and supports popular plugins such as WooCommerce, Jetpack, Contact Form 7, and Yoast SEO, allowing you to build a complete, dynamic site. With multilingual and RTL support—including demo content in languages like English, Chinese, Spanish, French, Japanese, and Arabic—GlobalNews is ideal for global publishers. The theme’s 1-click demo import feature and pre-built demos make setup quick and intuitive. Designed to be lightweight and fast-loading, it ensures optimal SEO and performance for increased engagement and reach. Perfect for blogs, magazines, and news sites, GlobalNews offers a professional, adaptable dark design with a wide array of layout and block patterns to showcase your content effectively. Explore demos and documentation at https://afthemes.com/products/globalnews/
+Template: morenews
+Version: 1.0.2
+Requires at least: 5.3
+WC requires at least: 3.0
+WC tested up to: 9.3
+Requires PHP: 5.6
+Tested up to: 6.7
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: globalnews
+Tags: news, blog, entertainment, one-column, two-columns, three-columns, four-columns, grid-layout, block-patterns, block-styles, left-sidebar, right-sidebar, custom-header, flexible-header, custom-background, custom-logo, custom-menu, custom-colors, featured-images, full-width-template, post-formats, rtl-language-support, footer-widgets, translation-ready, theme-options, threaded-comments, wide-blocks
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+GlobalNews WordPress Theme, Copyright 2024 AF themes
+GlobalNews is distributed under the terms of the GNU GPL v2 or later.
+*/
+
+.wp-block-latest-comments li.wp-block-latest-comments__comment,
+.wp-block-group ul li,
+.widget ul ul li,
+.widget>ul>li,
+.aft-main-banner-wrapper .aft-trending-posts.list-part .af-double-column.list-style .read-title h3,
+.af-trending-posts .aft-trending-posts.list-part .af-double-column.list-style .read-title h3,
+.morenews_popular_news_widget .banner-vertical-slider .af-double-column.list-style .read-title h3,
+.morenews_posts_double_columns_widget .af-widget-body .af-double-column.list-style .read-title h3,
+.af-list-post .read-title h3,
+.af-main-banner-categorized-posts.express-posts .af-sec-post.list-part .read-title h3 {
+
+    letter-spacing: 0.4px;
+}
+
+
+.aft-dark-mode .aft-main-banner-wrapper .af-slick-navcontrols,
+.aft-dark-mode .morenews-widget .af-slick-navcontrols,
+.aft-dark-mode .morenews-customizer .section-wrapper .af-slick-navcontrols,
+body.aft-dark-mode.single-post-title-full .entry-header-details,
+body.aft-dark-mode .main-navigation .menu .menu-mobile,
+body.aft-dark-mode .main-navigation .menu>ul>li>ul,
+body.aft-dark-mode .main-navigation .menu>ul ul,
+body.aft-dark-mode .af-search-form,
+body.aft-dark-mode .aft-popular-taxonomies-lists,
+body.aft-dark-mode .exclusive-slides::before,
+body.aft-dark-mode .exclusive-slides::after,
+body.aft-dark-mode .banner-exclusive-posts-wrapper .exclusive-posts:before,
+body.aft-dark-mode.woocommerce div.product,
+body.aft-dark-mode.home.blog main.site-main,
+body.aft-dark-mode main.site-main,
+body.aft-dark-mode.single main.site-main .entry-content-wrap,
+body.aft-dark-mode .af-main-banner-latest-posts.grid-layout.morenews-customizer .container-wrapper,
+body.aft-dark-mode .af-middle-header,
+body.aft-dark-mode .mid-header-wrapper,
+body.aft-dark-mode .comments-area,
+body.aft-dark-mode .af-breadcrumbs,
+.aft-dark-mode .morenews-customizer,
+body.aft-dark-mode .morenews-widget {
+    background-color: #222
+}
+
+.aft-dark-mode .aft-posts-tabs-panel .nav-tabs>li>a,
+.aft-dark-mode.widget-title-border-bottom .wp_post_author_widget .widget-title .header-after,
+.aft-dark-mode.widget-title-border-bottom .widget-title .heading-line,
+body.aft-dark-mode .reply a,
+body.aft-dark-mode.single span.tags-links a,
+.aft-dark-mode .banner-exclusive-posts-wrapper a,
+.aft-dark-mode .banner-exclusive-posts-wrapper a:visited,
+body.aft-dark-mode .aft-comment-view-share>span>a,
+.aft-default-mode .site-footer .wp-block-archives-list.wp-block-archives a:not(.has-text-color),
+.aft-default-mode .site-footer .wp-block-latest-posts a:not(.has-text-color),
+.aft-default-mode .site-footer .entry-content .wp-block-latest-posts a:not(.has-text-color),
+.aft-default-mode .site-footer .wp-block-categories-list.wp-block-categories a:not(.has-text-color),
+.aft-default-mode .site-footer .wp-block-latest-comments li.wp-block-latest-comments__comment a,
+.aft-dark-mode .wp-block-archives-list.wp-block-archives a:not(.has-text-color),
+.aft-dark-mode .wp-block-latest-posts a:not(.has-text-color),
+.aft-dark-mode .entry-content .wp-block-latest-posts a:not(.has-text-color),
+.aft-dark-mode .wp-block-categories-list.wp-block-categories a:not(.has-text-color),
+.aft-dark-mode .wp-block-latest-comments li.wp-block-latest-comments__comment a,
+body.aft-dark-mode,
+.aft-dark-mode .banner-exclusive-posts-wrapper a,
+.aft-dark-mode .banner-exclusive-posts-wrapper a:visited,
+body.aft-dark-mode .af-main-banner-thumb-posts .read-single:not(.af-cat-widget-carousel) .min-read,
+body.aft-dark-mode .header-layout-compressed .compress-bar-mid .date-bar-mid,
+body.aft-dark-mode .search-icon:visited,
+body.aft-dark-mode .search-icon:hover,
+body.aft-dark-mode .search-icon:focus,
+body.aft-dark-mode .search-icon:active,
+body.aft-dark-mode input,
+body.aft-dark-mode textarea,
+body.aft-dark-mode .aft-popular-taxonomies-lists ul li a,
+body.aft-dark-mode .color-pad,
+body.aft-dark-mode ul.trail-items li a,
+body.aft-dark-mode #wp-calendar caption,
+body.aft-dark-mode .nav-links a,
+body.aft-dark-mode .read-details .entry-meta span,
+body.aft-dark-mode .entry-meta span,
+body.aft-dark-mode .entry-meta span a,
+body.aft-dark-mode .read-title h3 a,
+body.aft-dark-mode .read-title h3 a {
+    color: #e0e0e0;
+}
+
+body.aft-dark-mode .main-navigation ul.children li,
+body.aft-dark-mode .main-navigation ul .sub-menu li {
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+body.aft-dark-mode .aft-masonry-archive-posts .no-post-image .read-img,
+body.aft-dark-mode .af-reated-posts.morenews-customizer .no-post-image .read-img.read-bg-img {
+    height: unset !important;
+    background: transparent;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+
+@media only screen and (min-width: 993px) {
+
+    body.aft-dark-mode .main-navigation .menu ul ul ul,
+    body.aft-dark-mode .main-navigation .menu>ul>li>ul {
+        background-color: #202020;
+    }
+}
+
+div#main-navigation-bar {
+    background: #af0700;
+}
+
+
+.exclusive-posts .exclusive-now {
+    background-color: #af0700;
+}
+
+.main-navigation .menu-description {
+    background-color: #333333;
+}
+
+.main-navigation .menu-description:after {
+    border-top: 5px solid #333333;
+}
+
+div.custom-menu-link>a {
+    background: #333333;
+
+}
+
+.read-img .trending-no,
+.trending-posts-vertical .trending-no {
+    background-color: #af0700;
+}
+
+.af-cat-widget-carousel a.morenews-categories.category-color-1 {
+    background-color: #af0700;
+
+}
+
+a.morenews-categories.category-color-1 {
+    color: #af0700;
+}
+
+.af-cat-widget-carousel a.morenews-categories.category-color-2 {
+    background-color: #007ACC;
+
+}
+
+a.morenews-categories.category-color-2 {
+    color: #007ACC;
+}
+
+.af-cat-widget-carousel a.morenews-categories.category-color-3 {
+    background-color: #333333;
+
+}
+
+a.morenews-categories.category-color-3 {
+    color: #333333;
+}
+
+footer.site-footer {
+    background-color: #202020;
+}
+
+.header-image-default .af-header-image.data-bg {
+    padding: 30px 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.widget-title span,
+.header-after1 span,
+.read-title h3 {
+    line-height: 1.4;
+}
+
+
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+    line-height: 1.7;
+}
+
+input {
+    vertical-align: middle;
+}
+
+textarea {
+    width: 100%;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+.cat-links li a {
+    font-size: 12px;
+    letter-spacing: normal;
+    line-height: 1;
+}
+
+.af-cat-widget-carousel a.morenews-categories {
+    padding: 5px 10px;
+
+}
+
+
+.widget:not(.morenews_social_contacts_widget) ul.menu>li,
+#sidr .morenews_express_posts_grid_widget .af-express-grid-wrap .read-single:first-child .read-title h3,
+#secondary .morenews_express_posts_grid_widget .af-express-grid-wrap .read-single:first-child .read-title h3,
+.morenews_express_posts_grid_widget .af-express-grid-wrap .read-single .read-title h3,
+.af-reated-posts .read-title h3,
+.af-main-banner-latest-posts .read-title h3,
+.four-col-masonry article.col-3 .read-title h3,
+.four-col-masonry article.latest-posts-grid.col-3 .read-title h3,
+.af-main-banner-thumb-posts .af-sec-post .read-title h3,
+.aft-main-banner-section.aft-banner-layout-2 .af-main-banner-thumb-posts .af-sec-post .read-title h3,
+.af-main-banner-categorized-posts.express-carousel .af-sec-post .read-title h3,
+.af-main-banner-featured-posts .read-title h3 {
+    font-size: 17px
+}
+
+blockquote {
+    font-size: 1.4rem;
+}
+
+ul.trail-items li a {
+    font-size: 16px;
+    opacity: 1;
+}
+
+.entry-header .entry-meta {
+    font-size: 16px;
+}
+
+.entry-header .post-excerpt {
+    font-size: 1.4rem;
+}
+
+a.comment-reply-link {
+    font-size: 12px;
+    padding: 5px 10px;
+    transition: all 300ms ease-out;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.comment-metadata a {
+    font-size: 16px;
+}
+
+.wp-block-latest-comments.has-avatars .wp-block-latest-comments__comment-excerpt,
+.wp-block-latest-comments .wp-block-latest-comments__comment-excerpt {
+    margin: 20px 0 0;
+}
+
+.wp-calendar-table tbody,
+#wp-calendar tbody {
+    color: #404040;
+}
+
+#wp-calendar thead th {
+    font-weight: 700;
+}
+
+.aft-dark-mode .wp-calendar-table tbody,
+.aft-dark-mode #wp-calendar tbody {
+    color: #ffffff;
+}
+
+.wp-block-table thead {
+    border-bottom: 2px solid;
+}
+
+.wp-block-table tfoot {
+    border-top: 2px solid;
+}
+
+.wp-block-table :where(figcaption) {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.gallery-caption {
+    position: static;
+}
+
+figcaption a {
+    text-decoration: underline;
+}
+
+.wp-caption .wp-caption-text {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.morenews-pagination .nav-links .page-numbers.dots {
+    border-width: 0;
+}
+
+body.page div.comments-area {
+    padding: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.entry-content>[class^="wp-block-"] {
+    margin-bottom: 30px;
+}
+
+.wp-block-code code,
+.wp-block-code .editor-plain-text {
+    background-color: #282828;
+}
+
+blockquote cite {
+    text-transform: none;
+    font-style: italic;
+    font-size: 0.75em;
+}
+
+dl {
+    padding: 20px;
+}
+
+ul.wp-block-categories-list.wp-block-categories li,
+ul.wp-block-archives-list.wp-block-archives li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+
+.wp-block-latest-posts.wp-block-latest-posts__list li,
+.wp-block-latest-comments li.wp-block-latest-comments__comment,
+.wp-block-group ul li,
+.widget:not(.morenews_social_contacts_widget) ul.menu>li,
+.widget ul ul li,
+.widget>ul>li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+}
+
+
+ul.wp-block-categories-list.wp-block-categories li a,
+ul.wp-block-archives-list.wp-block-archives li a {
+    font-weight: 700;
+    transition: all 0.075s linear;
+    border-width: 0;
+}
+
+.mailchimp-block .block-title,
+.morenews_posts_slider_widget .read-single .read-details .read-title h3,
+article.latest-posts-full .read-title h3,
+.af-banner-carousel .read-title h3 {
+    font-size: 32px;
+}
+
+.wp-post-author .wp-post-author-meta-bio {
+    opacity: 1;
+}
+
+.wp-post-author .awpa-display-name {
+    font-weight: 700;
+}
+
+.awpa-review-field .right-star .awpa-rating-button {
+    border-radius: 50px;
+    text-transform: none;
+    font-weight: 400;
+    line-height: normal;
+}
+
+a.awpa-more-posts:hover {
+    border-bottom: 1px solid !important;
+}
+
+.single h3.awpa-title,
+.single .awpa-review-field h3 {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wp-post-author-meta-more-posts {
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 375px) {
+    body .site-branding .site-title {
+        font-size: 2.75rem;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+
+    .container-wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    body .site-branding .site-title {
+        font-size: 2.75rem;
+    }
+
+    .widget:not(.morenews_social_contacts_widget) ul.menu>li,
+    #sidr .morenews_express_posts_grid_widget .af-express-grid-wrap .read-single:first-child .read-title h3,
+    #secondary .morenews_express_posts_grid_widget .af-express-grid-wrap .read-single:first-child .read-title h3,
+    .morenews_express_posts_grid_widget .af-express-grid-wrap .read-single .read-title h3,
+    .af-reated-posts .read-title h3,
+    .af-main-banner-latest-posts .read-title h3,
+    .four-col-masonry article.col-3 .read-title h3,
+    .four-col-masonry article.latest-posts-grid.col-3 .read-title h3,
+    .af-main-banner-thumb-posts .af-sec-post .read-title h3,
+    .aft-main-banner-section.aft-banner-layout-2 .af-main-banner-thumb-posts .af-sec-post .read-title h3,
+    .af-main-banner-categorized-posts.express-carousel .af-sec-post .read-title h3,
+    .af-main-banner-featured-posts .read-title h3 {
+        font-size: 16px;
+    }
+
+    body.single-post .entry-title,
+    body h1.page-title {
+        font-size: 1.75rem;
+    }
+
+    body.single .entry-header .aft-post-excerpt-and-meta .post-excerpt {
+        font-size: 1.2rem;
+    }
+
+
+
+}
+
+
+
+@media (min-width: 1200px) {
+    body.single-content-mode-boxed article.af-single-article .post-thumbnail.full-width-image {
+        padding-top: 2.5rem;
+    }
+}
+
+
+.af-social-contacts .social-widget-menu .screen-reader-text {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.social-widget-menu ul li a:after,
+.aft-small-social-menu ul li a:after {
+    font-size: 16px;
+}
+
+
+
+pre.wp-block-verse {
+    padding: 20px;
+    background-color: #efefef;
+}
+
+.wp-block-pullquote {
+    padding: 20px;
+}
+
+
+.post-navigation .em-post-navigation {
+    opacity: 1;
+}
+
+body.single-post .aft-image-caption {
+    background: #000000cc;
+}
+
+.aft-image-caption p,
+.entry-content.read-details .entry-meta {
+    font-size: 16px;
+}
+
+.entry-content .wp-block-cover .wp-block-cover__background,
+.entry-content .wp-block-cover .wp-block-cover__gradient-background,
+.entry-content .wp-block-cover-image .wp-block-cover__background,
+.entry-content .wp-block-cover-image .wp-block-cover__gradient-background,
+.entry-content .wp-block-cover-image.has-background-dim:not(.has-background-gradient):before,
+.entry-content .wp-block-cover.has-background-dim:not(.has-background-gradient):before {
+    margin-bottom: 0;
+}
+
+.fl-builder .morenews-page-section>.fl-builder-content,
+.morenews-full-width-content .site-main>.rz-root__container,
+.morenews-full-width-content .site-main>.fl-builder-content {
+    max-width: unset;
+}

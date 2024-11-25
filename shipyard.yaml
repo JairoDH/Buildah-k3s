@@ -1,0 +1,33 @@
+apiVersion: "spec.keptn.sh/0.2.0"
+kind: Shipyard
+metadata:
+  name: wordpress-pipeline
+spec:
+  stages:
+    - name: build
+      resources:
+        - name: wordpress-app
+          type: git
+          uri: 'git@github.com:JairoDH/Keptn-k3s.git'
+      tasks:
+        - name: build-image
+          sequence:
+            - name: build
+              task:
+                container:
+                  image: 'buildah:lates'
+                  command: 'buildah bud -t wpimagen:${BUILD_NUMBER} .'
+            - name: push
+              task:
+                container:
+                  image: 'docker:latest'
+                  command: 'docker push wpimagen:${BUILD_NUMBER}'
+    - name: deploy
+      task:
+        - name: deploy-to-k3s
+          sequence:
+            - name: deploy
+              task:
+                container:
+                   image: 'kubectl:lates'
+                   command: 'kubectl apply -f wordPress-deployment.yaml'
