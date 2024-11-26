@@ -27,7 +27,7 @@ pipeline {
                 stage('Push Image') {
                     steps {
                         script {
-                            sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/jairodh/${IMAGE}:${BUILD_NUMBER}"
+                            sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                         }
                     }
                 }
@@ -55,11 +55,12 @@ pipeline {
                 sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
         }
+    }
     post {
         always {
             mail to: 'jairo.snort35@gmail.com',
-            subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-            body: "${env.BUILD_URL} has result ${currentBuild.result}"
+                 subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+                 body: "${env.BUILD_URL} has result ${currentBuild.result}"
         }
     }
 }
