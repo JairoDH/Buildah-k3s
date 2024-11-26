@@ -5,7 +5,6 @@ pipeline {
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "Keptn-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
-      #  K3S_NAMESPACE = "default"
     }
     agent none
     stages {
