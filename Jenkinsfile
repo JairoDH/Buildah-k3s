@@ -5,7 +5,7 @@ pipeline {
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "Keptn-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
-        K3S_NAMESPACE = "default"
+      #  K3S_NAMESPACE = "default"
     }
     agent none
     stages {
@@ -42,19 +42,33 @@ pipeline {
                 }
             }
         }
-        stage('Deployment') {
-            agent any
+        stage('Deploy to Development') {
             steps {
-                script {
-                    sshagent(credentials: ['VPS_SSH']) {
-                        // Comando para desplegar en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-deployment.yaml'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-srv.yaml'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/ingress.yaml'"                    }
-                }
+                sh """
+                    kubectl apply -f ${BUILD_DIR}/k3s/mysql-deployment.yaml
+                    kubectl apply -f ${BUILD_DIR}/k3s/wordPress-deployment.yaml
+                    kubectl apply -f ${BUILD_DIR}/k3s/ingress.yaml
+                """
             }
-        } 
-    }
+        }
+        stage('Integration Tests') {
+            steps {
+                sh "curl -I http://www.veinttidos.org" | grep '200 OK'"
+            }
+        }
+#        stage('Deployment') {
+#            agent any
+#            steps {
+#                script {
+#                    sshagent(credentials: ['VPS_SSH']) {
+#                        // Comando para desplegar en el VPS
+#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-deployment.yaml'"
+#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-srv.yaml'"
+#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/ingress.yaml'"                    }
+#                }
+#            }
+#        } 
+#    }
     post {
         always {
             mail to: 'jairo.snort35@gmail.com',
