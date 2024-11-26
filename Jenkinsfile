@@ -55,19 +55,6 @@ pipeline {
                 sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
         }
-#        stage('Deployment') {
-#            agent any
-#            steps {
-#                script {
-#                    sshagent(credentials: ['VPS_SSH']) {
-#                        // Comando para desplegar en el VPS
-#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-deployment.yaml'"
-#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-srv.yaml'"
-#                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/ingress.yaml'"                    }
-#                }
-#            }
-#        } 
-#    }
     post {
         always {
             mail to: 'jairo.snort35@gmail.com',
