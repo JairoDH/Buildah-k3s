@@ -27,7 +27,7 @@ pipeline {
                 stage('Push Image') {
                     steps {
                         script {
-                            sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/jairodh/${IMAGE:${BUILD_NUMBER}"
+                            sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/jairodh/${IMAGE}:${BUILD_NUMBER}"
                         }
                     }
                 }
