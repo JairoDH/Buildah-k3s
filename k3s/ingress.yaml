@@ -23,20 +23,20 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: keptn-bridge-ingress
-  namespace: keptn-system
+  name: jenkins-ingress
+  namespace: jenkins
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: keptn.veinttidos.org
+  - host: jenkins.veinttidos.org
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: bridge
+            name: jenkins
             port:
               number: 8080
 
