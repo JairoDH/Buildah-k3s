@@ -52,7 +52,7 @@ pipeline {
         }
         stage('Integration Tests') {
             steps {
-                sh "curl -I http://www.veinttidos.org" | grep '200 OK'"
+                sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
         }
 #        stage('Deployment') {
