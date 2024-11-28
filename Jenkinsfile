@@ -1,66 +1,79 @@
 pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
-        LOGIN = "DOCKER_HUB"
+        LOGIN = credentials("DOCKER_HUB")
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
-        BUILD_DIR = "Keptn-k3s"
-        KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
+        BUILD_DIR = "Keptn-k3s/k3s"
     }
-    agent none
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+  name: buildah-pod
+spec:
+  containers:
+  - name: buildah
+    image: docker.io/jairodh/buildah:v2
+    command:
+    - cat
+    tty: true
+    securityContext:
+      privileged: true
+    volumeMounts:
+      - name: varlibcontainers
+        mountPath: /var/lib/containers
+  volumes:
+    - name: varlibcontainers
+      emptyDir: {}
+'''
+        }
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        durabilityHint('PERFORMANCE_OPTIMIZED')
+        disableConcurrentBuilds()
+    }
     stages {
         stage('Clone') {
-            agent any
             steps {
                 git branch: 'main', url: "${REPO_URL}"
             }
         }
-        stage('Build-Image') {
-            agent any
-            stages {
-                stage('Build Image with Buildah') {
-                    steps {
-                        script {
-                            sh "buildah bud --tag ${IMAGE}:${BUILD_NUMBER} ."
-                        }
-                    }
-                }
-                stage('Push Image') {
-                    steps {
-                        script {
-                            sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
-                        }
-                    }
-                }
-                stage('Remove Image') {
-                    steps {
-                        script {
-                            // Limpiar las imágenes locales
-                            sh "buildah rmi ${IMAGE}:${BUILD_NUMBER}"
-                        }
+        stage('Build and Push Image') {
+            steps {
+                container('buildah') {
+                    script {
+                        // Construcción de la imagen
+                        sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
+
+                        // Login en Docker Hub
+                        docker.withRegistry('', LOGIN) 
+
+                        // Push de la imagen
+                        sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                     }
                 }
             }
         }
         stage('Deploy to Development') {
             steps {
-                sh """
-                    kubectl apply -f ${BUILD_DIR}/k3s/mysql-deployment.yaml
-                    kubectl apply -f ${BUILD_DIR}/k3s/wordPress-deployment.yaml
-                    kubectl apply -f ${BUILD_DIR}/k3s/ingress.yaml
-                """
+                script {
+                    withKubeConfig([credentialsId: 'kubeconfig-credentials-id', serverUrl: 'https://kubernetes-server-url']) {
+                        sh """
+                            kubectl apply -f ${BUILD_DIR}/mysql-deployment.yaml
+                            kubectl apply -f ${BUILD_DIR}/wordPress-deployment.yaml
+                            kubectl apply -f ${BUILD_DIR}/ingress.yaml
+                        """
+                    }
+                }
             }
         }
         stage('Integration Tests') {
             steps {
                 sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
-        }
-    }
-    post {
-        always {
-            mail to: 'jairo.snort35@gmail.com',
-                 subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-                 body: "${env.BUILD_URL} has result ${currentBuild.result}"
         }
     }
 }
