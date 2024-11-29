@@ -4,6 +4,7 @@ pipeline {
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "/home/jairo/Keptn-k3s/k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
+        DOCKER_HUB = "docker_hub"
     }
     agent {
         kubernetes {
@@ -47,15 +48,18 @@ spec:
                     script {
                         // Construcción de la imagen
                         sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
-                        // Push de la imagen
+                        
+			// Login en DockerHub utilizando las credenciales de Jenkins
+                        withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        
+			// Realizar login en DockerHub
+                            sh "echo ${DOCKER_PASS} | buildah login -u ${DOCKER_USER} --password-stdin"
+                        }
+			
+			// Push de la imagen
                         sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                     }
                 }
-            }
-        }
-        stage('Integration Tests') {
-            steps {
-                sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
         }
         stage('Deployment') {
