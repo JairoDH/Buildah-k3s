@@ -1,7 +1,6 @@
 pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
-        LOGIN = "DOCKER_HUB"
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "/home/jairo/Keptn-k3s/k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
@@ -48,10 +47,6 @@ spec:
                     script {
                         // Construcción de la imagen
                         sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
-
-                        // Login en Docker Hub
-                        docker.withRegistry('https://registry.hub.docker.com', LOGIN)
-
                         // Push de la imagen
                         sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                     }
