@@ -4,7 +4,7 @@ pipeline {
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "/home/jairo/Keptn-k3s/k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
-        DOCKER_HUB = "docker_hub"
+        DOCKER_HUB = credentials('docker_hub')
     }
     agent {
         kubernetes {
