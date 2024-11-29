@@ -50,7 +50,7 @@ spec:
                         sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
 
                         // Login en Docker Hub
-                        docker.withRegistry('', LOGIN)
+                        docker.withRegistry('https://registry.hub.docker.com', LOGIN)
 
                         // Push de la imagen
                         sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
