@@ -1,9 +1,10 @@
 pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
-        LOGIN = credentials("DOCKER_HUB")
+        LOGIN = DOCKER_HUB
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
-        BUILD_DIR = "Keptn-k3s/k3s"
+        BUILD_DIR = "/home/jairo/Keptn-k3s/k3s"
+        KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
     }
     agent {
         kubernetes {
@@ -36,12 +37,12 @@ spec:
         disableConcurrentBuilds()
     }
     stages {
-        stage('Clone') {
+        stage('Clonar repositorio') {
             steps {
                 git branch: 'main', url: "${REPO_URL}"
             }
         }
-        stage('Build and Push Image') {
+        stage('Crear y subir imagen') {
             steps {
                 container('buildah') {
                     script {
@@ -57,23 +58,21 @@ spec:
                 }
             }
         }
-        stage('Deploy to Development') {
-            steps {
-                script {
-                    withKubeConfig([credentialsId: 'kubeconfig-credentials-id', serverUrl: 'https://kubernetes-server-url']) {
-                        sh """
-                            kubectl apply -f ${BUILD_DIR}/mysql-deployment.yaml
-                            kubectl apply -f ${BUILD_DIR}/wordPress-deployment.yaml
-                            kubectl apply -f ${BUILD_DIR}/ingress.yaml
-                        """
-                    }
-                }
-            }
-        }
         stage('Integration Tests') {
             steps {
                 sh "curl -I http://www.veinttidos.org | grep '200 OK'"
             }
         }
+        stage('Deployment') {
+            agent any
+            steps {
+                script {
+                    sshagent(credentials: ['VPS_SSH']) {
+                        // Comando para desplegar en el VPS
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/wordPress-deplo>
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/wordPress-srv.y>
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingress.yaml'" >
+                }
+            }
+        }
     }
-}
