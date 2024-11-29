@@ -50,7 +50,7 @@ spec:
                         sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
 
                         // Login en Docker Hub
-                        docker.withRegistry('', LOGIN) 
+                        docker.withRegistry('', LOGIN)
 
                         // Push de la imagen
                         sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
@@ -69,9 +69,10 @@ spec:
                 script {
                     sshagent(credentials: ['VPS_SSH']) {
                         // Comando para desplegar en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/wordPress-deployment.yaml'" 
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/wordPress-deployment.yaml'"
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/wordPress-srv.yaml'"
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingress.yaml'"
+                    }
                 }
             }
         }
