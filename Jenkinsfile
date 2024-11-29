@@ -1,7 +1,7 @@
 pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
-        LOGIN = DOCKER_HUB
+        LOGIN = "DOCKER_HUB"
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
         BUILD_DIR = "/home/jairo/Keptn-k3s/k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
