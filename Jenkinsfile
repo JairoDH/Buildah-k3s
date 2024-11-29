@@ -53,7 +53,7 @@ spec:
                         withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         
 			// Realizar login en DockerHub
-                            sh "echo ${DOCKER_PASS} | buildah login docker.io -u ${DOCKER_USER} --password-stdin"
+                            sh "echo ${DOCKER_PASS} | buildah login -u ${DOCKER_USER} --password-stdin docker.io"
                         }
 			
 			// Push de la imagen
