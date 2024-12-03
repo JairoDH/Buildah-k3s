@@ -8,7 +8,7 @@ metadata:
 spec:
 #  ingressClassName: nginx
   rules:
-  - host: www.touristmap.org
+  - host: www.touristmap.es
     http:
       paths:
       - path: /
