@@ -1,7 +1,14 @@
 pipeline {
+    environment {
+        IMAGE = "jairodh/wpimagen"
+        REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
+        BUILD_DIR = "/home/jairo/Keptn-k3s"
+        KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
+        DOCKER_HUB = credentials('docker_hub')
+    }
     agent {
         kubernetes {
-            yaml """
+            yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -21,7 +28,7 @@ spec:
   volumes:
     - name: varlibcontainers
       emptyDir: {}
-"""
+'''
         }
     }
     options {
@@ -60,13 +67,13 @@ spec:
             steps {
                 script {
                     sshagent(credentials: ['VPS_SSH']) {
-                        // Actualizar el repositorio en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd /home/jairo/Keptn-k3s && git pull'"
-
-                        // Desplegar en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-deployment.yaml'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/wordPress-srv.yaml'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f /home/jairo/Keptn-k3s/k3s/ingress.yaml'"
+                        // Actualizar repositorio
+			sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'" 
+			
+			// Comando para desplegar en el VPS
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/wordPress-deployment.yaml'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/wordPress-srv.yaml'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/ingress.yaml'"
                     }
                 }
             }
