@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    type: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      type: database
+  template:
+    metadata:
+      labels:
+        app: mysql
+        type: database
+    spec:
+      containers:
+        - name: mysql
+          image: mariadb
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MARIADB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_user
+            - name: MARIADB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: wpdates
+                  key: bd_name
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wppass
+                  key: bd_password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wppass
+                  key: bd_rootpassword
+          volumeMounts: 
+            - name: mysql-vol
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-vol
+          persistentVolumeClaim:
+            claimName: mysql-pvc

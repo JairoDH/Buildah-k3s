@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wordpress-ingress
+  name: wordpress-ingress-dev
   labels:
     app: wordpress
     type: frontend
 spec:
 #  ingressClassName: nginx
   rules:
-  - host: www.touristmap.es
+  - host: dev.touristmap.es
     http:
       paths:
       - path: /
