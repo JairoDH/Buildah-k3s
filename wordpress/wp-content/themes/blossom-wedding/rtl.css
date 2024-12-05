@@ -1,0 +1,642 @@
+/*
+Theme Name: Blossom Wedding
+
+Adding support for languages written in a Right To Left (RTL) direction is easy -
+it's just a matter of overwriting all the horizontal positioning attributes
+of your CSS stylesheet in a separate stylesheet file named rtl.css.
+
+https://codex.wordpress.org/Right-to-Left_Language_Support
+
+*/
+
+.rsvp-flag {
+	margin-left: 0;
+	margin-right: 30px;
+}
+
+.site-header .site-branding.text-image .site-title-wrap {
+	padding-left: 0;
+	padding-right: 15px;
+}
+
+.site-header.header-six .site-branding, 
+.site-header.header-seven .site-branding {
+	justify-content: center;
+}
+
+.header-six .main-navigation ul .sub-menu, 
+.header-seven .main-navigation ul .sub-menu {
+	text-align: right;
+}
+
+.site-banner .banner-wrap .owl-nav {
+	right: auto;
+	left: 0;
+	flex-direction: row-reverse;
+}
+
+.site-banner .banner-wrap .owl-dots {
+	left: auto;
+	right: 0;
+}
+
+section.about-section .widget:first-child {
+	text-align: left;
+	padding-right: 0;
+	padding-left: 30px;
+}
+
+section.about-section .widget:first-child .widget-title {
+	text-align: left;
+}
+
+section.about-section .widget:first-child .widget-title svg {
+	margin-right: auto;
+	margin-left: 0;
+}
+
+section.about-section .widget:last-child {
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+section.about-section .widget:last-child .widget-title {
+	text-align: right;
+}
+
+section.about-section .widget:last-child .widget-title svg {
+	margin-left: auto;
+	margin-right: 0;
+}
+
+.story-section .section-grid-inner article .content-wrap {
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+.story-section .section-grid-inner article .post-thumbnail img + img {
+	right: auto;
+	left: 0;
+}
+
+.story-section .section-grid-inner article:nth-child(2n) .post-thumbnail {
+	text-align: left;
+}
+
+.story-section .section-grid-inner article:nth-child(2n) .post-thumbnail img + img {
+	right: 0;
+	left: auto;
+}
+
+.story-section .section-grid-inner article:nth-child(2n) .content-wrap {
+	text-align: left;
+	padding-right: 0;
+	padding-left: 30px;
+}
+
+.story-section .section-grid-inner article:nth-child(2n) .entry-title svg {
+	margin-left: 0;
+	margin-right: auto;
+}
+
+.story-section .section-grid-inner article:last-child .content-wrap {
+	padding-right: 30px;
+	text-align: center;
+}
+
+.story-section .section-grid-inner article:last-child .entry-title svg {
+	margin-left: auto;
+}
+
+.moredays-section .moredays-block .moredays-img {
+	margin-left: 0;
+	margin-right: 30px;
+}
+
+.moredays-section .moredays-block .moredays-content-wrap {
+	text-align: left;
+	padding-right: 0;
+	padding-left: 110px;
+}
+
+.moredays-section .moredays-block:nth-child(2n) .moredays-img {
+	margin-right: 0;
+	margin-left: 30px;
+}
+
+.moredays-section .moredays-block .moredays-img::before {
+	border-right: none;
+	border-left: 13px solid #fff;
+	left: auto;
+	right: -13px;
+}
+
+.moredays-section .moredays-block:nth-child(2n) .moredays-img::before {
+	right: auto;
+	left: -13px;
+	border-right: 13px solid #fff;
+	border-left: none;
+}
+
+.moredays-section .moredays-block:nth-child(2n) .moredays-content-wrap {
+	text-align: right;
+	padding-left: 0;
+	padding-right: 110px;
+}
+
+.officiant-section .man-matron-wrap > div.man-block {
+	margin-left: auto;
+}
+
+.officiant-section .bride-groom-wrap > div {
+	padding-right: 0;
+	padding-left: 54px;
+}
+
+.officiant-section .bride-groom-wrap .officiant-content-wrap {
+	padding-left: 0;
+	padding-right: 25px;
+}
+
+.officiant-section .bride-groom-wrap .groom-wrap + .bride-wrap {
+	padding-left: 0;
+	padding-right: 54px;
+	border-left: none;
+	border-right: 1px solid rgba(227, 150, 150, 0.3);
+}
+
+section.gallery-section .button-group button:first-child {
+	border-radius: 0 50px 50px 0;
+}
+
+section.gallery-section .button-group button:last-child {
+	border-radius: 50px 0 0 50px;
+}
+
+section.accommodation-section .widget_bttk_icon_text_widget {
+	margin-right: 0;
+	margin-left: 3%;
+}
+
+section.accommodation-section .widget_bttk_icon_text_widget:nth-child(2n) {
+	margin-left: 0;
+}
+
+.blog-section article .entry-header {
+	left: auto;
+	right: -75px;
+	padding-left: 0;
+	padding-right: 50px;
+}
+
+.blog-section article:nth-child(2n) .entry-header {
+	left: -75px;
+	right: auto;
+	padding-right: 0;
+	padding-left: 50px;
+}
+
+.widget-area .widget .widget-title {
+	text-align: right;
+}
+
+.widget-area .widget .widget-title::after {
+	left: auto;
+	right: 0;
+}
+
+.widget_bttk_popular_post ul li .post-thumbnail, 
+.widget_bttk_pro_recent_post ul li .post-thumbnail {
+	float: right;
+	margin-right: 0;
+	margin-left: 20px;
+}
+
+.widget_bttk_custom_categories ul li a .cat-title {
+	padding-left: 0;
+	padding-right: 15px;
+}
+
+.widget_bttk_contact_social_links ul.contact-list li {
+	padding-left: 0;
+	padding-right: 40px;
+}
+
+.widget_bttk_contact_social_links ul.contact-list li svg {
+	left: auto;
+	right: 0;
+}
+
+.widget_bttk_author_bio {
+	text-align: right;
+}
+
+.widget_blossomthemes_email_newsletter_widget .subscribe-inner-wrap {
+	text-align: right;
+	padding-left: 0;
+	padding-right: 28px;
+}
+
+.widget_blossomthemes_email_newsletter_widget .subscribe-inner-wrap .check-mark {
+	left: auto;
+	right: 0;
+	margin-right: 0;
+}
+
+.widget_calendar table tfoot td {
+	left: auto;
+	right: 0;
+}
+
+.widget_calendar table tfoot td#next {
+	left: 0;
+	right: auto;
+}
+
+.widget_calendar table tfoot td a {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.search-form .search-field {
+	border-right: 1px solid #D9D9D9;
+	border-left: none;
+}
+
+.widget_nav_menu ul ul {
+	padding-left: 0;
+	padding-right: 15px;
+}
+
+.widget_bttk_icon_text_widget .rtc-itw-inner-holder .widget-title {
+	text-align: center;
+}
+
+.pagination .page-numbers.prev, 
+.pagination .page-numbers.next {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.list-alternate .site-main article .entry-header, 
+.list-view .site-main article .entry-header {
+	padding-left: 0;
+	padding-right: 40px;
+	right: -50px;
+}
+
+.list-alternate .site-main article:nth-child(2n) .entry-header {
+	padding-right: 0;
+	padding-left: 40px;
+	left: -50px;
+	align-items: flex-end;
+}
+
+.list-alternate .site-main article:nth-child(2n) .entry-header .entry-title {
+	text-align: left;
+}
+
+.comment-navigation .nav-previous, 
+.posts-navigation .nav-previous, 
+.post-navigation .nav-previous {
+	float: right;
+	padding-right: 0;
+	padding-left: 10px;
+}
+
+.comment-navigation .nav-next, 
+.posts-navigation .nav-next, 
+.post-navigation .nav-next {
+	float: left;
+	text-align: left;
+	padding-left: 0;
+	padding-right: 10px;
+}
+
+.post-navigation .nav-links a {
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+.post-navigation .nav-links .nav-next a {
+	padding-left: 30px;
+	padding-right: 0;
+}
+
+.post-navigation .nav-links a svg {
+	left: auto;
+	right: 0;
+	top: 4px;
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.post-navigation .nav-links .nav-next a svg {
+	right: auto;
+	left: 0;
+}
+
+.single .site-main .article-meta {
+	padding-left: 0;
+	padding-right: 15px;
+}
+
+.single .site-main .article-meta + .entry-content {
+	padding-left: 0;
+	padding-right: 50px;
+}
+
+.single .site-main .article-meta ~ .entry-footer {
+	padding-left: 0;
+	padding-right: 115px;
+}
+
+.author-block .author-content-wrap {
+	padding-left: 0;
+	padding-right: 35px;
+}
+
+.author-block .author-content-wrap .author-social ul li {
+	margin-right: 0;
+	margin-left: 30px;
+}
+
+.author-block .author-content-wrap .author-social ul li a svg.svg-inline--fa {
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+.newsletter .blossomthemes-email-newsletter-wrapper .text-holder::before {
+	left: auto;
+	right: 0;
+}
+
+.additional-post .post-title::after {
+	left: auto;
+	right: 0;
+}
+
+.additional-post article .entry-header {
+	padding-right: 0;
+	padding-left: 40px;
+}
+
+.additional-post article .entry-header .entry-title {
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+.comments-area .comment-body {
+	padding-left: 0;
+	padding-right: 70px;
+}
+
+.comment-body img.avatar {
+	left: auto;
+	right: 0;
+}
+
+.comments-area ol li ol {
+	margin-left: 0;
+	margin-right: 30px;
+}
+
+.comments-area .bypostauthor > .comment-body .comment-author::after {
+	left: auto;
+	right: 35px;
+}
+
+.comments-area .comments-title::after, 
+.comment-respond .comment-reply-title::after {
+	left: auto;
+	right: 0;
+}
+
+@media screen and (max-width: 1024px) {
+
+	.site-header .site-branding {
+		padding-left: 0;
+		padding-right: 15px;
+	}
+
+	.main-navigation ul li .submenu-toggle {
+		right: auto;
+		left: 8px;
+	}
+
+	section.testimonial-section .section-grid .owl-nav [class*="owl-"] {
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+
+	.story-section .section-grid-inner article .post-thumbnail {
+		padding-right: 0;
+		padding-left: 100px;
+	}
+
+	.story-section .section-grid-inner article:nth-child(2n) .post-thumbnail {
+		padding-left: 0;
+		padding-right: 100px;
+	}
+
+	.story-section .section-grid-inner article:last-child .post-thumbnail {
+		padding-right: 0;
+	}
+
+	.moredays-section .moredays-block .moredays-content-wrap {
+		padding-left: 80px;
+	}
+
+	.moredays-section .moredays-block:nth-child(2n) .moredays-content-wrap {
+		padding-right: 80px;
+	}
+
+	.officiant-section .bride-groom-wrap .officiant-content-wrap {
+		padding-right: 0;
+	}
+
+}
+
+@media screen and (max-width: 767px) {
+
+	.rsvp-flag {
+		margin-right: 15px;
+	}
+
+	.site-banner .banner-wrap .owl-nav {
+		left: 10px;
+	}
+
+	section.about-section .widget:first-child {
+		text-align: center;
+		padding-left: 0;
+	}
+
+	section.about-section .widget:first-child .widget-title {
+		text-align: center;
+	}
+
+	section.about-section .widget:first-child .widget-title svg {
+		margin-left: auto;
+	}
+
+	section.about-section .widget:last-child {
+		padding-right: 0;
+	}
+
+	section.about-section .widget:last-child .widget-title {
+		text-align: center;
+	}
+
+	section.about-section .widget:last-child .widget-title svg {
+		margin-right: auto;
+	}
+
+	.story-section .section-grid-inner article .post-thumbnail {
+		padding-right: 0;
+		padding-left: 80px;
+	}
+
+	.story-section .section-grid-inner article:nth-child(2n) .post-thumbnail {
+		padding-left: 0;
+		padding-right: 80px;
+	}
+
+	.story-section .section-grid-inner article .content-wrap {
+		padding-right: 0;
+	}
+
+	.story-section .section-grid-inner article:nth-child(2n) .content-wrap {
+		text-align: center;
+		padding-left: 0;
+	}
+
+	.story-section .section-grid-inner article:nth-child(2n) .entry-title svg {
+		margin-left: auto;
+	}
+
+	.story-section .section-grid-inner article:nth-child(2n) .post-thumbnail {
+		padding-right: 0;
+	}
+
+	.story-section .section-grid-inner article:last-child .content-wrap {
+		padding-left: 30px;
+	}
+
+	.moredays-section .moredays-block .moredays-img {
+		margin-right: 0;
+	}
+
+	.moredays-section .moredays-block:nth-child(2n) .moredays-img {
+		margin-left: 0;
+	}
+
+	.moredays-section .moredays-block .moredays-img::before {
+		border-top-color: #ffffff;
+		border-bottom: none;
+		border-right: 13px solid transparent;
+		border-left: 13px solid transparent;
+		top: auto;
+		bottom: -13px;
+		left: 0;
+		right: 0;
+		width: 0;
+		margin: 0 auto;
+	}
+
+	.moredays-section .moredays-block:nth-child(2n) .moredays-img::before {
+		border-left: 13px solid transparent;
+		border-right: 13px solid transparent;
+		left: 0;
+		right: 0;
+	}
+
+	.moredays-section .moredays-block .moredays-content-wrap {
+		padding-left: 0;
+		text-align: center;
+	}
+
+	.moredays-section .moredays-block:nth-child(2n) .moredays-content-wrap {
+		padding-right: 0;
+		text-align: center;
+	}
+
+	.officiant-section .bride-groom-wrap > div {
+		padding-left: 0;
+	}
+
+	.officiant-section .bride-groom-wrap .groom-wrap + .bride-wrap {
+		padding-right: 0;
+		border-right: none;
+	}
+
+	.officiant-section .bride-groom-wrap .officiant-content-wrap {
+		padding-right: 0;
+	}
+
+	section.accommodation-section .widget_bttk_icon_text_widget {
+		margin-left: 0;
+	}
+
+	.blog-section article .entry-header {
+		right: 0;
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+
+	.blog-section article:nth-child(2n) .entry-header {
+		left: 0;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.list-alternate .site-main article .entry-header, 
+	.list-view .site-main article .entry-header {
+		right: 0;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.list-alternate .site-main article:nth-child(2n) .entry-header {
+		padding-left: 20px;
+		padding-right: 20px;
+		left: 0;
+		align-items: flex-start;
+	}
+
+	.list-alternate .site-main article:nth-child(2n) .entry-header .entry-title {
+		text-align: right;
+	}
+
+	.single .site-main .article-meta, 
+	.single .site-main .article-meta + .entry-content, 
+	.single .site-main .article-meta ~ .entry-footer {
+		padding-right: 0;
+	}
+
+	.author-block .author-content-wrap {
+		padding-right: 0;
+	}
+
+	.newsletter .blossomthemes-email-newsletter-wrapper .text-holder {
+		padding-right: 40px;
+		padding-left: 0;
+	}
+
+	.additional-post article .entry-header .entry-title {
+		padding-right: 0;
+	}
+
+	.comments-area .comment-body {
+		padding-right: 50px;
+	}
+
+	.comments-area .bypostauthor > .comment-body .comment-author::after {
+		right: 22px;
+	}
+
+}
