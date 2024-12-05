@@ -23,8 +23,6 @@ spec:
           ports:
             - containerPort: 80
               name: http-port
- #          - containerPort: 443
-  #            name: https-port
           env:
             - name: WORDPRESS_DB_HOST
               value: mysql-service
@@ -43,10 +41,11 @@ spec:
                 configMapKeyRef:
                   name: wpdates
                   key: bd_name
-     #     volumeMounts:
-      #      - name: pvc-wordpress
-       #       mountPath: /var/www/html
-    #  volumes:
-     #   - name: pvc-wordpress
-      #    persistentVolumeClaim:
-       #     claimName: pvc-wordpress
+          volumeMounts:
+            - name: wordpress-data
+              mountPath: /var/www/html
+      volumes:
+        - name: wordpress-data
+          hostPath:
+            path: /home/jairo/Keptn-k3s/wordpress
+            type: Directory
