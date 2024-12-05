@@ -73,6 +73,7 @@ spec:
 			// Cambiar permisos a la carpeta /Keptn-k3s/wordpress
 			sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'"
 			
+
 			// Comando para desplegar en el VPS
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s'"
                     }
