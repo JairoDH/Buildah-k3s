@@ -5,8 +5,9 @@ metadata:
   labels:
     app: wordpress
     type: frontend
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
-#  ingressClassName: nginx
   rules:
   - host: dev.touristmap.es
     http:
@@ -14,8 +15,8 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-           service:
-             name: wordpress-service
-             port:
-               number: 80
+          service:
+            name: wordpress-service
+            port:
+              number: 80
 

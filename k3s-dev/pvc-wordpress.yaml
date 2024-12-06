@@ -11,7 +11,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /mnt/data/wordpress
+    path: /home/jairo/Keptn-k3s/wordpress
 
 ---
 apiVersion: v1

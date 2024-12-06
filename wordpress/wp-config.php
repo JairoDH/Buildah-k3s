@@ -97,10 +97,10 @@ define('FS_METHOD', 'direct');
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
-if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) {
-    define('FORCE_SSL_LOGIN', true);
-}
-define('FORCE_SSL_ADMIN', true);
+// if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) {
+//    define('FORCE_SSL_LOGIN', true);
+// }
+// define('FORCE_SSL_ADMIN', true);
 
 
 /** Sets up WordPress vars and included files. */

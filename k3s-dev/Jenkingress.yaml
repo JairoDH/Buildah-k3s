@@ -4,7 +4,7 @@ metadata:
   name: jenkins-ingress
   namespace: jenkins
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: jenkins.touristmap.es
