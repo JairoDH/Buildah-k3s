@@ -1,63 +1,32 @@
-# Utilizar la imagen oficial de Jenkins como base
-FROM jenkins/jenkins:lts
+#Selección de imagen
+FROM debian:12
 
-# Establecer el usuario root para realizar instalaciones
-USER root
+# Variables de entorno para la base de datos
+ENV WORDPRESS_DB_USER=${bd_user}
+ENV WORDPRESS_DB_PASSWORD=${bd_psswd}
+ENV WORDPRESS_DB_NAME=${bd_name}
+ENV WORDPRESS_DB_HOST=mysql-service
 
-# Actualizar apt y añadir dependencias para Buildah
+# Actualizar e instalar las dependencias
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release \
-    fuse-overlayfs \
-    && add-apt-repository -y ppa:projectatomic/ppa \
-    && apt-get update \
-    && apt-get install -y buildah \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    apache2 \
+    mariadb-client \
+    php \
+    php-mysql \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Variables de entorno
-ENV LANG=C.UTF-8
-ENV JENKINS_HOME=/var/jenkins_home
-ENV JENKINS_SLAVE_AGENT_PORT=50000
-ENV REF=/usr/share/jenkins/ref
-ENV JENKINS_UC=https://updates.jenkins.io
-ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
-ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-ENV COPY_REFERENCE_FILE_LOG=/var/jenkins_home/copy_reference_file.log
-ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# Descargar WordPress
+RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
+    mv /tmp/repo/wordpress/* /var/www/html && \
+    rm -rf /tmp/repo && \
+    rm -rf /var/www/html/index.html
+ 
+# Configurar los permisos
+RUN chown -R www-data:www-data /var/www/html
 
-# Definir puertos expuestos
-EXPOSE 8080 50000
+# Exponer los puertos
+EXPOSE 80 443
 
-# Copiar archivos necesarios
-COPY /javaruntime /opt/java/openjdk
-COPY jenkins-support /usr/local/bin/jenkins-support
-COPY jenkins.sh /usr/local/bin/jenkins.sh
-COPY jenkins-plugin-cli.sh /bin/jenkins-plugin-cli
-
-# Establecer el directorio de trabajo y el usuario Jenkins
-USER jenkins
-
-# Volumen para persistir datos
-VOLUME ["/var/jenkins_home"]
-
-# Configuración de la entrada del contenedor
-ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
-
-# Etiquetas para la imagen
-LABEL org.opencontainers.image.vendor="Jenkins project" \
-      org.opencontainers.image.title="Official Jenkins"
-
-# Finalizar con el usuario root para permitir ciertas configuraciones finales
-USER root
-
-# Finalización de la instalación y configuraciones
-RUN apt-get update && apt-get install -y \
-    # Agregar aquí cualquier otra dependencia que necesites
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Regresar al usuario Jenkins para que el contenedor corra bajo este usuario
-USER jenkins
+# Comando de inicio
+CMD ["apache2ctl", "-D", "FOREGROUND"]

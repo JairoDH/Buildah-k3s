@@ -1,22 +1,39 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: wordpress-ingress-dev
+  name: wordpress-ingress
   labels:
     app: wordpress
     type: frontend
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+#    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
-  - host: dev.touristmap.es
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: wordpress-service
-            port:
-              number: 80
+    - host: www.touristmap.es
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wordpress-service
+                port:
+                  number: 80
+    - host: dev.touristmap.es
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wordpress-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - www.touristmap.es
+      secretName: tls-cert-secret
 
