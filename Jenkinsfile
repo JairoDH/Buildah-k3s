@@ -57,7 +57,7 @@ spec:
                         }
                          
                         // Push de la imagen
-                        sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBESR}"
+                        sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                     }
                 }
             }
