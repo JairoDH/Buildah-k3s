@@ -74,7 +74,7 @@ spec:
 			sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'"
 			
 			// Sincronizar datos del PV antes del despliegue
-			sh "rsync -avz --delete /home/jairo/Keptn-k3s/wordpress/ jairo@fekir.touristmap.es:/home/jairo/Keptn-k3s/wordpress/"
+			sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'rsync -avz --delete /home/jairo/Keptn-k3s/wordpress/ jairo@fekir.touristmap.es:/home/jairo/Keptn-k3s/wordpress/'"
                 
 			// Comando para desplegar en el VPS
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
