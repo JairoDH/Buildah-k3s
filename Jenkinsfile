@@ -27,7 +27,7 @@ spec:
       - name: varlibcontainers
         mountPath: /var/lib/containers
   - name: kubectl
-    image: lachlanevenson/k8s-kubectl:v1.21.2  // Contenedor con kubectl preinstalado
+    image: lachlanevenson/k8s-kubectl:latest
     command:
     - cat
     tty: true
