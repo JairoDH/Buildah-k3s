@@ -101,7 +101,9 @@ spec:
 
                          // Importar la base de datos en el VPS
                         sh "ssh jairo@fekir.touristmap.es 'mysql -u\$MYSQL_USER -p\$MYSQL_PASSWORD ${MYSQL_DB} < /tmp/backup.sql'"
-                }
+                      }
+                   }
+               }
             }
         }
     }
