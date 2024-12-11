@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 
 # Descargar WordPress
 RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
-    mv /tmp/repo/wordpress/* /var/www/html && \
+    cp -r /tmp/repo/wordpress/* /var/www/html/ && \
     rm -rf /tmp/repo && \
     rm -rf /var/www/html/index.html
  
