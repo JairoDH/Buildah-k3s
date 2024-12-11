@@ -5,7 +5,7 @@ FROM debian:12
 ENV WORDPRESS_DB_USER=${bd_user}
 ENV WORDPRESS_DB_PASSWORD=${bd_psswd}
 ENV WORDPRESS_DB_NAME=${bd_name}
-ENV WORDPRESS_DB_HOST=mysql-service
+ENV WORDPRESS_DB_HOST=mysql
 
 # Actualizar e instalar las dependencias
 RUN apt-get update && apt-get install -y \

@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: mysql
   labels:
-    app: mysql
+    app: wordpress
     type: database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: wordpress
       type: database
   template:
     metadata:
       labels:
-        app: mysql
+        app: wordpress
         type: database
     spec:
       containers:
@@ -44,10 +44,10 @@ spec:
                 secretKeyRef:
                   name: wppass
                   key: bd_rootpassword
-          volumeMounts: 
-            - name: mysql-vol
+          volumeMounts:
+            - name: mysql
               mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-vol
+        - name: mysql
           persistentVolumeClaim:
             claimName: mysql-pvc

@@ -1,10 +1,30 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  #persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /home/jairo/Keptn-k3s/mysql_backup/
+#    type: DirectoryOrCreate  # Esto crea el directorio si no existe
+
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
+  labels:
+    app: wordpress
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
+ # volumeName: mysql-pvc

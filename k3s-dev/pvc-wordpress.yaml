@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: wordpress-pv
+  name: wordpress
   labels:
-    app: wordpress
+    type: local
 spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+    - ReadWriteMany
+  #persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/jairo/Keptn-k3s/wordpress
+    path: /home/jairo/Keptn-k3s/wordpress/
 
 ---
 apiVersion: v1
