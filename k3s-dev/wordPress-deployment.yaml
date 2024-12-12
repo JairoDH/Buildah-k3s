@@ -46,5 +46,6 @@ spec:
               mountPath: /var/www/html
       volumes:
         - name: wordpress-pv
-          persistentVolumeClaim:
-            claimName: wordpress-pvc
+          hostPath:
+            path: /home/jairo/Keptn-k3s/wordpress/
+            type: Directory

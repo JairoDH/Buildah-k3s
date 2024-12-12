@@ -9,20 +9,20 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
-  #persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /home/jairo/Keptn-k3s/wordpress/
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wordpress-pvc
-  labels:
-    app: wordpress
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: wordpress-pvc
+#  labels:
+#    app: wordpress
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 10Gi
