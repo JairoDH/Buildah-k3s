@@ -13,7 +13,7 @@ spec:
     - name: http-sv-port
       port: 80
       targetPort: http-port
-#    - name: https-sv-port
- #     port: 443
-  #    targetPort: https-port
+    - name: https-sv-port
+      port: 443
+      targetPort: https-port
   type: ClusterIP
