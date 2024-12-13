@@ -43,6 +43,15 @@ spec:
         disableConcurrentBuilds()
     }
     stages {
+        stage('Check Event') {
+            steps {
+                script {
+                    if (env.GITHUB_EVENT != 'published') {
+                        error("Not a release event. Skipping build.")
+                    }
+                }
+            }
+        }
         stage('Clonar repositorio') {
             steps {
                 git branch: 'main', url: "${REPO_URL}"
