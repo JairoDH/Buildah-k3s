@@ -46,6 +46,25 @@ spec:
         stage('Build only on prod branch') {
             when {
                 branch 'prod'
+	stage('Debug Workspace') {
+            steps {
+                // Muestra la ruta del workspace
+                sh 'echo "El WORKSPACE es: $WORKSPACE"'
+
+                // Lista los archivos y directorios presentes en el workspace
+                sh 'ls -l $WORKSPACE'
+
+                // Imprime todas las variables de entorno
+                sh 'env | sort'
+            }	    
+        stage('Check Event') {
+            steps {
+                script {
+                    if (env.GITHUB_EVENT != 'published') {
+                        error("Not a release event. Skipping build.")
+                    }
+                }
+		echo "Release event detected. Proceeding with build."
             }
             steps {
                 echo "Se ha hecho push a la rama 'prod'. Ejecutando build..."
