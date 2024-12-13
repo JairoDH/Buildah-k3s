@@ -62,8 +62,8 @@ kpipeline {
             steps {
                 container('buildah') {
                     script {
-                        sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
-                        withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                            sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
+                            withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                             sh "echo ${DOCKER_PASS} | buildah login -u ${DOCKER_USER} --password-stdin docker.io"
                             sh "buildah push ${IMAGE}:${BUILD_NUMBER} docker://docker.io/${IMAGE}:${BUILD_NUMBER}"
                         }
