@@ -1,4 +1,4 @@
-kpipeline {
+pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
@@ -132,7 +132,3 @@ kpipeline {
                 }
             }
         }
-        
-    }
-}
-
