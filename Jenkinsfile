@@ -50,6 +50,7 @@ spec:
                         error("Not a release event. Skipping build.")
                     }
                 }
+		echo "Release event detected. Proceeding with build."
             }
         }
         stage('Clonar repositorio') {
