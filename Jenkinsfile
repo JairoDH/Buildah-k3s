@@ -6,6 +6,7 @@ pipeline {
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
         MYSQL_DB = 'wordpress'
+	GITHUB_EVENT = sh(script: 'jq -r ".action" < $WORKSPACE/github-webhook-payload.json', returnStdout: true).trim()
     }
     agent {
         kubernetes {
