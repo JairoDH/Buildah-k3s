@@ -44,6 +44,17 @@ spec:
         disableConcurrentBuilds()
     }
     stages {
+	stage('Debug Workspace') {
+            steps {
+                // Muestra la ruta del workspace
+                sh 'echo "El WORKSPACE es: $WORKSPACE"'
+
+                // Lista los archivos y directorios presentes en el workspace
+                sh 'ls -l $WORKSPACE'
+
+                // Imprime todas las variables de entorno
+                sh 'env | sort'
+            }	    
         stage('Check Event') {
             steps {
                 script {
