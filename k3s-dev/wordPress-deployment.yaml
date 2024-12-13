@@ -23,6 +23,8 @@ spec:
           ports:
             - containerPort: 80
               name: http-port
+            - containerPort: 443
+              name: https-port
           env:
             - name: WORDPRESS_DB_HOST
               value: mysql

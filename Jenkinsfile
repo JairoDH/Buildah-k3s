@@ -93,14 +93,15 @@ spec:
                          // Ejecutar mysqldump dentro del contenedor de MySQL en Kubernetes
                         sh """
                             kubectl exec -it \$(kubectl get pod -l app=mysql -o jsonpath='{.items[0].metadata.name}') -- \
-                            /usr/bin/mysqldump -u\$MYSQL_USER -p\$MYSQL_PASSWORD ${MYSQL_DB} > /tmp/backup.sql
+                            /usr/bin/mysqldump -u\$MYSQL_USER -p\$MYSQL_PASSWORD ${MYSQL_DB} > /home/jairo/mysql_backup/backup.sql
                            """
 
                          // Copiar el archivo de respaldo al VPS
-                        sh "scp /tmp/backup.sql jairo@fekir.touristmap.es:/tmp/backup.sql"
+                        sh "scp /home/jairo/mysql_backup/backup.sql jairo@fekir.touristmap.es:/home/jairo/mysql_backup/backup.sql"
 
                          // Importar la base de datos en el VPS
-                        sh "ssh jairo@fekir.touristmap.es 'mysql -u\$MYSQL_USER -p\$MYSQL_PASSWORD ${MYSQL_DB} < /tmp/backup.sql'"
+                        sh "ssh jairo@fekir.touristmap.es 'kubectl exec -it \$(kubectl get pod -l app=mysql -o jsonpath='{.items[0].metadata.name}') -- \ 
+			mysql -u\$MYSQL_USER -p\$MYSQL_PASSWORD ${MYSQL_DB} < /home/jairo/mysql_backup/backup.sql'"
                       }
                    }
                }

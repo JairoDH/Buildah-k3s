@@ -19,7 +19,7 @@ spec:
               service:
                 name: wordpress
                 port:
-                  number: 80
+                  number: 443
     - host: dev.touristmap.es
       http:
         paths:
