@@ -6,6 +6,7 @@ pipeline {
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
         MYSQL_DB = 'wordpress'
+        GIT_BRANCH = "${git_branch}"
     }
     
     agent {
@@ -49,7 +50,7 @@ pipeline {
                 stage('Verificar rama') {
                     steps {
                         script {
-                            if (env.BRANCH_NAME != 'prod') {
+                            if (env.GIT_BRANCH.contains("prod")) {
                                 currentBuild.result = 'ABORTED'
                                 error("Este pipeline solo debe ejecutarse en la rama 'prod'")
                             }
