@@ -33,5 +33,6 @@ spec:
   tls:
     - hosts:
         - www.touristmap.es
+        - dev.touristmap.es
       secretName: tls-cert-secret
 
