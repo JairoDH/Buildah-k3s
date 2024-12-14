@@ -116,14 +116,14 @@ pipeline {
                                 ]) {
                                     // Ejecutar mysqldump dentro del contenedor de MySQL en Kubernetes
                                     sh """
-                                        kubectl exec -it \$(kubectl get pod -l app=wordpress -o jsonpath='{.items[0].metadata.name}') -- \\
+                                        kubectl exec -it \$(kubectl get pod -l app=wordpress -n default -o jsonpath='{.items[0].metadata.name}') -- \\
                                         /usr/bin/mysqldump -u\\$MYSQL_USER -p\\$MYSQL_PASSWORD ${MYSQL_DB} > /home/jairo/Keptn-k3s/mysql_backup/backup.sql
                                     """
                                     // Copiar el archivo de respaldo al VPS
                                     sh "scp /home/jairo/Keptn-k3s/mysql_backup/backup.sql jairo@fekir.touristmap.es:/home/jairo/Keptn-k3s/mysql_backup/backup.sql"
                                     // Importar la base de datos en el VPS
                                     sh """
-                                        ssh jairo@fekir.touristmap.es 'kubectl exec -it \$(kubectl get pod -l app=wordpress -o jsonpath="{.items[0].metadata.name}") -- \\
+                                        ssh jairo@fekir.touristmap.es 'kubectl exec -it \$(kubectl get pod -l app=wordpress -n default -o jsonpath="{.items[0].metadata.name}") -- \\
                                         mysql -u\\$MYSQL_USER -p\\$MYSQL_PASSWORD ${MYSQL_DB} < /home/jairo/Keptn-k3s/mysql_backup/backup.sql'
                                     """
                                 }
