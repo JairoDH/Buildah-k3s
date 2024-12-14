@@ -11,7 +11,7 @@ spec:
     - ReadWriteOnce
   #persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/jairo/Keptn-k3s/mysql_backup/
+    path: /home/jairo/mysql_backup/
 #    type: DirectoryOrCreate  # Esto crea el directorio si no existe
 
 ---

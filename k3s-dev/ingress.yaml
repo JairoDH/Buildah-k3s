@@ -6,7 +6,7 @@ metadata:
     app: wordpress
     type: frontend
   annotations:
-#    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
@@ -19,7 +19,7 @@ spec:
               service:
                 name: wordpress
                 port:
-                  number: 443
+                  number: 80
     - host: dev.touristmap.es
       http:
         paths:
@@ -33,5 +33,6 @@ spec:
   tls:
     - hosts:
         - www.touristmap.es
+        - dev.touristmap.es
       secretName: tls-cert-secret
 
