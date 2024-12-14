@@ -50,7 +50,7 @@ pipeline {
                 stage('Verificar rama') {
                     steps {
                         script {
-                            if (env.GIT_BRANCH.contains("prod")) {
+                            if (!env.GIT_BRANCH.contains("prod")) {
                                 currentBuild.result = 'ABORTED'
                                 error("Este pipeline solo debe ejecutarse en la rama 'prod'")
                             }
