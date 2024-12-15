@@ -5,8 +5,6 @@ pipeline {
         BUILD_DIR = "/home/jairo/Keptn-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
-        MYSQL_DB = 'wordpress'
-        GIT_BRANCH = "${git_branch}"
     }
     
     agent {
@@ -50,9 +48,9 @@ pipeline {
         stage('Verificar rama') {
             steps {
                 script {
-                    if (!env.GIT_BRANCH.contains("prod")) {
+                    if (!env.BRANCH_NAME.contains("prod") && !env.BRANCH_NAME.contains("main")) {
                         currentBuild.result = 'ABORTED'
-                        error("Este pipeline solo debe ejecutarse en la rama 'prod'")
+                        error("Este pipeline solo debe ejecutarse en las ramas 'prod' o 'main'")
                     }
                 }
             }
@@ -60,7 +58,7 @@ pipeline {
 
         stage('Clonar repositorio') {
             steps {
-                git branch: 'prod',
+                git branch: "${env.BRANCH_NAME}",
                     url: "${REPO_URL}"
             }
         }
@@ -93,16 +91,24 @@ pipeline {
         stage('Deployment') {
             steps {
                 script {
-                    sshagent(credentials: ['VPS_SSH']) {
-                        // Actualizar repositorio
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'"
-                        // Cambiar permisos a la carpeta /Keptn-k3s/wordpress
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'"
-                        // Comando para desplegar en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
+                    if (env.BRANCH_NAME == "prod") {
+                        sshagent(credentials: ['VPS_SSH']) {
+                            // Actualizar repositorio y permisos
+                            sh """
+                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'
+                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'
+                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/'
+                            """
+                        }
+                    } else if (env.BRANCH_NAME == "main") {
+                        // Despliegue local
+                        sh """
+                            cd ${BUILD_DIR} && git pull
+                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/
+                        """
                     }
                 }
             }
         }
-    }        
+    }
 }

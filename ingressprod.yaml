@@ -20,19 +20,7 @@ spec:
                 name: wordpress
                 port:
                   number: 80
-    - host: dev.touristmap.es
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: wordpress
-                port:
-                  number: 80
   tls:
     - hosts:
         - www.touristmap.es
-        - dev.touristmap.es
       secretName: tls-cert-secret
-
