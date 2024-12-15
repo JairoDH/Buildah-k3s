@@ -31,9 +31,16 @@ pipeline {
                       command:
                       - cat
                       tty: true
+                      volumeMounts:
+                      - name: builddir
+                        mountPath: /home/jairo/Keptn-k3s
                     volumes:
                     - name: varlibcontainers
                       emptyDir: {}
+                    - name: builddir
+                      hostPath:
+                        path: /home/jairo/Keptn-k3s
+                        type: Directory
             '''
         }
     }
@@ -87,13 +94,15 @@ pipeline {
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/'
+                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'
                             """
                         }
                     } else if (env.BRANCH_NAME == "main") {
                         // Despliegue local
                         sh """
                             cd ${BUILD_DIR} && git pull
-                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/
+                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s
+                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressdev.yaml
                         """
                     }
                 }
@@ -101,4 +110,3 @@ pipeline {
         }
     }
 }
-
