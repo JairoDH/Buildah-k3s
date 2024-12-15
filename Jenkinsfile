@@ -5,6 +5,8 @@ pipeline {
         BUILD_DIR = "/home/jairo/Keptn-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
+        MYSQL_DB = 'wordpress'
+        GIT_BRANCH = "${git_branch}"
     }
     
     agent {
@@ -31,16 +33,9 @@ pipeline {
                       command:
                       - cat
                       tty: true
-                      volumeMounts:
-                      - name: builddir
-                        mountPath: /home/jairo/Keptn-k3s
                     volumes:
                     - name: varlibcontainers
                       emptyDir: {}
-                    - name: builddir
-                      hostPath:
-                        path: /home/jairo/Keptn-k3s
-                        type: Directory
             '''
         }
     }
@@ -50,16 +45,23 @@ pipeline {
         durabilityHint('PERFORMANCE_OPTIMIZED')
         disableConcurrentBuilds()
     }
-
+    
     stages {
-        stage('Clonar repositorio') {
+        stage('Verificar rama') {
             steps {
                 script {
-                    // Verifica si el directorio existe, si no lo clona
-                    if (!fileExists("${BUILD_DIR}")) {
-                        sh "git clone ${REPO_URL} ${BUILD_DIR}"
+                    if (!env.GIT_BRANCH.contains("main")) {
+                        currentBuild.result = 'ABORTED'
+                        error("Este pipeline solo debe ejecutarse en la rama 'main'")
                     }
                 }
+            }
+        }
+
+        stage('Clonar repositorio') {
+            steps {
+                git branch: 'main',
+                    url: "${REPO_URL}"
             }
         }
 
@@ -69,7 +71,7 @@ pipeline {
                     script {
                         // Construcción de la imagen
                         sh "buildah build -t ${IMAGE}:${BUILD_NUMBER} ."
-                       
+                        
                         // Login en Docker Hub utilizando las credenciales de Jenkins
                         withCredentials([
                             usernamePassword(
@@ -91,25 +93,18 @@ pipeline {
         stage('Deployment') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == "prod") {
-                        sshagent(credentials: ['VPS_SSH']) {
-                            // Actualizar repositorio y permisos
-                            sh """
-                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'
-                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'
-                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/'
-                            """
-                        }
-                    } else if (env.BRANCH_NAME == "main") {
-                        // Despliegue local
-                        sh """
-                            cd ${BUILD_DIR} && git pull
-                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/
-                        """
+                    sshagent(credentials: ['VPS_SSH']) {
+                        // Actualizar repositorio
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'"
+                        // Cambiar permisos a la carpeta /Keptn-k3s/wordpress
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'"
+                        // Comando para desplegar en el VPS
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
+
                     }
                 }
             }
         }
-    }
+    }        
 }
-
