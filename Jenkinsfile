@@ -1,4 +1,4 @@
-pipeline {
+kpipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
         REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
@@ -54,8 +54,12 @@ pipeline {
     stages {
         stage('Clonar repositorio') {
             steps {
-                git branch: "${env.BRANCH_NAME}",
-                    url: "${REPO_URL}"
+                script {
+                    // Verifica si el directorio existe, si no lo clona
+                    if (!fileExists("${BUILD_DIR}")) {
+                        sh "git clone ${REPO_URL} ${BUILD_DIR}"
+                    }
+                }
             }
         }
 
@@ -94,15 +98,13 @@ pipeline {
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R www-data:www-data ${BUILD_DIR}/wordpress/*'
                                 ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/'
-                                ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'
                             """
                         }
                     } else if (env.BRANCH_NAME == "main") {
                         // Despliegue local
                         sh """
-                            #cd ${BUILD_DIR} && git pull
-                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s
-                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressdev.yaml
+                            cd ${BUILD_DIR} && git pull
+                            kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s/
                         """
                     }
                 }
@@ -110,3 +112,4 @@ pipeline {
         }
     }
 }
+
