@@ -100,7 +100,7 @@ pipeline {
                     } else if (env.BRANCH_NAME == "main") {
                         // Despliegue local
                         sh """
-                            cd ${BUILD_DIR} && git pull
+                            #cd ${BUILD_DIR} && git pull
                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s
                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressdev.yaml
                         """
