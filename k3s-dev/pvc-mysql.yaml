@@ -9,22 +9,23 @@ spec:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
-  #persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/jairo/mysql_backup/
-#    type: DirectoryOrCreate  # Esto crea el directorio si no existe
+    path: /home/jairo/mysql-data/
+    type: DirectoryOrCreate  # Esto crea el directorio si no existe
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-  labels:
-    app: wordpress
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: mysql-pvc
+#  labels:
+#    app: wordpress
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 5Gi
+#  storageClassName: manual
  # volumeName: mysql-pvc
