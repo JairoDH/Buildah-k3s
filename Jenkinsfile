@@ -89,7 +89,7 @@ pipeline {
                 script {
 		    sshagent(credentials: ['VPS_SSH']) {
                         // Ejecutar el script en la máquina local
-			sh "pwd"
+			sh "ls /home/jenkins/agent/workspace/wordpress"
                         sh "scp -r /home/jenkins/databd.sql jairo@fekir.touristmap.es:/home/jairo/"
                         
                     }
