@@ -86,12 +86,13 @@ pipeline {
 
         stage('Migración de la base de datos') {
             steps {
-                script {
-		    sshagent(credentials: ['VPS_SSH']) {
-                        // Ejecutar el script en la máquina local
-			sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
-                        sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
-                        
+                container('buildah') {
+                    script {
+		        sshagent(credentials: ['VPS_SSH']) {
+                            // Ejecutar el script en la máquina local
+			    sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
+                            sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
+                        }
                     }
                 }
             }
