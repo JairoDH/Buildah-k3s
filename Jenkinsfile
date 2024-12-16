@@ -89,10 +89,10 @@ pipeline {
                 script {
 		    sshagent(credentials: ['VPS_SSH']) {
                         // Ejecutar el script en la máquina local
-			sh "ls /home/"
-			sh "ls /home/jairo/Keptn-k3s"
-                        sh "sh /home/jairo/Keptn-k3s/scriptbackup.sh"                   
-                        sh "scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/"
+			sh "ls /home/jenkins/"
+			sh "ls /home/Jenkins/Keptn-k3s"
+                        sh "sh /home/jenkins/Keptn-k3s/scriptbackup.sh"                   
+                        sh "scp -r /home/jenkins/databd.sql jairo@fekir.touristmap.es:/home/jairo/"
                         
                     }
                 }
