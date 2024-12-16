@@ -32,4 +32,4 @@ RUN chmod +x /usr/local/scriptbackup.sh
 EXPOSE 80 443
 
 # Comando de inicio
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+CMD ["apache2ctl", "-D", "FOREGROUND", "usr/local/scriptbackup.sh"]
