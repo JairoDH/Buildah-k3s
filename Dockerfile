@@ -1,4 +1,4 @@
-#Selección de imagen
+ç#Selección de imagen
 FROM debian:12
 
 # Actualizar e instalar las dependencias
@@ -20,15 +20,16 @@ RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
 ENV WORDPRESS_DB_USER=${bd_user}
 ENV WORDPRESS_DB_PASSWORD=${bd_psswd} 
 ENV WORDPRESS_DB_NAME=${bd_name}
-ENV WORDPRESS_DB_HOST= "mysql.default.svc.cluster.local"
+ENV WORDPRESS_DB_HOST= mysql
 
 # Configurar los permisos
 RUN chown -R www-data:www-data /var/www/html
 
-#  copiar contenido de la base de datos de wordpress y moverlo a
-RUN mysqldump -u $WORDPRESS_DB_USER --password=$WORDPRESS_DB_PASSWORD -h $WORDPRESS_DB_HOST $WORDPRESS_DB_NAME > DBcopy.sql /
-    cp -r DBcopy.sql /var/lib/mysql
+COPY scriptbackup.sh /usr/local/
+RUN chmod +x /usr/local/scriptbackup.sh
 
+COPY DBcopy.sql /var/lib/mysql/
+ 
 # Exponer los puertos
 EXPOSE 80 443
 
