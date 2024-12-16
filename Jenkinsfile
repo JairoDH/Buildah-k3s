@@ -89,19 +89,9 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['LOCAL_SSH']) {
-                            #Instala kubectl
-                            #curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
-                            #chmod +x kubectl
-                            #mv kubectl /tmp/kubectl
-                            #export PATH=$PATH:/tmp
-                            #kubectl version --client
-                            # Instala mysqldump (paquete mysql-client)
-                            # sudo apt-get install -y mysql-client
-                            # Ejecutar el script en la máquina local
 	                sh  "ssh -o StrictHostKeyChecking=no jairo@localhost 'ip a'"
                         sh  "ssh -o StrictHostKeyChecking=no jairo@localhost 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
-                        sh  "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"
-                        
+                        sh  "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"          
                     }
                 }
             }
