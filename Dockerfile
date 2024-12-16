@@ -20,7 +20,7 @@ RUN git clone https://github.com/JairoDH/Keptn-k3s.git /tmp/repo && \
 ENV WORDPRESS_DB_USER=${bd_user}
 ENV WORDPRESS_DB_PASSWORD=${bd_psswd} 
 ENV WORDPRESS_DB_NAME=${bd_name}
-ENV WORDPRESS_DB_HOST=mysql
+ENV WORDPRESS_DB_HOST= "mysql.default.svc.cluster.local"
 
 # Configurar los permisos
 RUN chown -R www-data:www-data /var/www/html
