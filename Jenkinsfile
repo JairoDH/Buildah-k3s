@@ -99,8 +99,8 @@ pipeline {
                             # Instala mysqldump (paquete mysql-client)
                             # sudo apt-get install -y mysql-client
                             # Ejecutar el script en la máquina local
-                            sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
-                            sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"
+                            "ssh -o StrictHostKeyChecking=no jairo@localhost 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
+                            "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"
                         '''
                     }
                 }
