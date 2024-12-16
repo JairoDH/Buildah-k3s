@@ -22,7 +22,7 @@ pipeline {
                       command:
                       - cat
                       tty: true
-		      runAsUser: '0'
+		    runAsUser: '0'
                       securityContext:
                         privileged: true
                       volumeMounts:
