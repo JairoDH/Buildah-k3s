@@ -98,7 +98,7 @@ pipeline {
 			    export PATH=$PATH:/tmp
 			    kubectl version --client
 			    # Instala mysqldump (paquete mysql-client)
-                            sudo apt-get update && sudo apt-get install -y mysql-client
+                            apt-get install -y mysql-client
                             # Ejecutar el script en la máquina local
                             sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
                             sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
