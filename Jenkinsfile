@@ -5,7 +5,6 @@ pipeline {
         BUILD_DIR = "/home/jairo/Keptn-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
-        MYSQL_DB = 'wordpress'
         GIT_BRANCH = "${git_branch}"
     }
     
@@ -28,11 +27,6 @@ pipeline {
                       volumeMounts:
                       - name: varlibcontainers
                         mountPath: /var/lib/containers
-                    - name: kubectl
-                      image: lachlanevenson/k8s-kubectl:latest
-                      command:
-                      - cat
-                      tty: true
                     volumes:
                     - name: varlibcontainers
                       emptyDir: {}
