@@ -28,8 +28,6 @@ RUN chown -R www-data:www-data /var/www/html
 COPY scriptbackup.sh /usr/local/
 RUN chmod +x /usr/local/scriptbackup.sh
 
-COPY DBcopy.sql /var/lib/mysql/
- 
 # Exponer los puertos
 EXPOSE 80 443
 
