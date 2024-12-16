@@ -89,7 +89,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['LOCAL_SSH']) {
-                            # Instala kubectl
+                            #Instala kubectl
                             #curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
                             #chmod +x kubectl
                             #mv kubectl /tmp/kubectl
