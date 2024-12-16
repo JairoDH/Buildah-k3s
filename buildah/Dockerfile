@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y buildah \
     && apt-get install -y mysql-client \
     && apt-get install -y kubectl \
+    && apt-get install -y sudo \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Variables de entorno
