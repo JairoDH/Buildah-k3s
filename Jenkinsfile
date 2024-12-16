@@ -89,9 +89,18 @@ pipeline {
                 container('buildah') {
                     script {
 		        sshagent(credentials: ['VPS_SSH']) {
+			    sh '''
+        		    # Instala kubectl
+                            curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
+                            chmod +x kubectl
+                            mv kubectl /usr/local/bin/
+			    # Instala mysqldump (paquete mysql-client)
+                            apt-get update && apt-get install -y mysql-client
                             // Ejecutar el script en la máquina local
-			    sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
+                            sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
                             sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
+
+		            '''
                         }
                     }
                 }
