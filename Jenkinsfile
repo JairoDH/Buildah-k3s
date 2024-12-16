@@ -95,7 +95,7 @@ pipeline {
                             chmod +x kubectl
                             mv kubectl /tmp/kubectl
 			    export PATH=$PATH:/tmp
-			    kubectl versio n --client
+			    kubectl version --client
 			    # Instala mysqldump (paquete mysql-client)
                             apt-get update && apt-get install -y mysql-client
                             // Ejecutar el script en la máquina local
