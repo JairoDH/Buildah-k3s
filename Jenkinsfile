@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     // Ejecutar el script en la máquina local
-                    sh "cd ${BUILD_DIR} && ./scriptbackup.sh"
+                    sh "sh /home/jairo/Keptn-k3s/scriptbackup.sh"
                     
                     // Usar SCP para transferir el archivo .sql a la VPS
                     sh "scp /home/jairo/databd.sql jairo@touristmap.es:/home/jairo/"
