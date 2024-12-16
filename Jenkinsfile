@@ -88,21 +88,20 @@ pipeline {
         stage('Migración de la base de datos') {
             steps {
                 script {
-		        sshagent(credentials: ['VPS_SSH']) {
-			    sh '''
-        		    # Instala kubectl
+                    sshagent(credentials: ['LOCAL_SSH']) {
+                        sh '''
+                            # Instala kubectl
                             #curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
                             #chmod +x kubectl
                             #mv kubectl /tmp/kubectl
-			    #export PATH=$PATH:/tmp
-			    #kubectl version --client
-			    # Instala mysqldump (paquete mysql-client)
+                            #export PATH=$PATH:/tmp
+                            #kubectl version --client
+                            # Instala mysqldump (paquete mysql-client)
                             # sudo apt-get install -y mysql-client
                             # Ejecutar el script en la máquina local
                             sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
                             sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"
-		            '''
-                        }
+                        '''
                     }
                 }
             }
@@ -119,9 +118,9 @@ pipeline {
                         // Comando para desplegar en el VPS
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
-
                     }
                 }
             }
         }
     }
+}
