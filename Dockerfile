@@ -26,7 +26,7 @@ ENV WORDPRESS_DB_HOST=mysql
 RUN chown -R www-data:www-data /var/www/html
 
 #  copiar contenido de la base de datos de wordpress y moverlo a
-RUN mysqldump -u $WORDPRESS_DB_USER -p$WORDPRESS_DB_PASSWORD -h $WORDPRESS_DB_HOST $WORDPRESS_DB_NAME > DBcopy.sql /
+RUN mysqldump -u $WORDPRESS_DB_USER --password=$WORDPRESS_DB_PASSWORD -h $WORDPRESS_DB_HOST $WORDPRESS_DB_NAME > DBcopy.sql /
     cp -r DBcopy.sql /var/lib/mysql
 
 # Exponer los puertos
