@@ -87,22 +87,20 @@ pipeline {
 
         stage('Migración de la base de datos') {
             steps {
-                container('buildah') {
-                    script {
+                script {
 		        sshagent(credentials: ['VPS_SSH']) {
 			    sh '''
         		    # Instala kubectl
-                            curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
-                            chmod +x kubectl
-                            mv kubectl /tmp/kubectl
-			    export PATH=$PATH:/tmp
-			    kubectl version --client
+                            #curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
+                            #chmod +x kubectl
+                            #mv kubectl /tmp/kubectl
+			    #export PATH=$PATH:/tmp
+			    #kubectl version --client
 			    # Instala mysqldump (paquete mysql-client)
                             # sudo apt-get install -y mysql-client
                             # Ejecutar el script en la máquina local
-                            sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
-                            sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
-
+                            sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
+                            sh "ssh -o StrictHostKeyChecking=no jairo@localhost 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"
 		            '''
                         }
                     }
