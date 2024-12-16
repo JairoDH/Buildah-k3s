@@ -22,6 +22,7 @@ pipeline {
                       command:
                       - cat
                       tty: true
+		      runAsUser: '0'
                       securityContext:
                         privileged: true
                       volumeMounts:
@@ -98,7 +99,7 @@ pipeline {
 			    kubectl version --client
 			    # Instala mysqldump (paquete mysql-client)
                             apt-get update && apt-get install -y mysql-client
-                            // Ejecutar el script en la máquina local
+                            # Ejecutar el script en la máquina local
                             sh "sh /home/jenkins/agent/workspace/wordpress/scriptbackup.sh"
                             sh "scp -r databd.sql jairo@fekir.touristmap.es:/home/jairo/"
 
