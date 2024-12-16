@@ -7,39 +7,15 @@ pipeline {
         DOCKER_HUB = credentials('docker_hub')
         GIT_BRANCH = "${git_branch}"
     }
-    
-    agent {
-        kubernetes {
-            yaml '''
-                apiVersion: v1
-                kind: Pod
-                metadata:
-                    name: buildah-pod
-                spec:
-                    containers:
-                    - name: buildah
-                      image: docker.io/jairodh/buildah:v2
-                      command:
-                      - cat
-                      tty: true
-                      securityContext:
-                        privileged: true
-                      volumeMounts:
-                      - name: varlibcontainers
-                        mountPath: /var/lib/containers
-                    volumes:
-                    - name: varlibcontainers
-                      emptyDir: {}
-            '''
-        }
-    }
+
+    agent any
     
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         durabilityHint('PERFORMANCE_OPTIMIZED')
         disableConcurrentBuilds()
     }
-    
+
     stages {
         stage('Verificar rama') {
             steps {
@@ -87,12 +63,11 @@ pipeline {
         stage('Migración de la base de datos') {
             steps {
                 script {
-                    sshagent(credentials: ['VPS_SSH']) {
+                    // Ejecutar el script en la máquina local
+                    sh "cd ${BUILD_DIR} && ./scriptbackup.sh"
                     
-                        sh "cd ${BUILD_DIR} && ./scriptbackup.sh"
-                        sh "scp /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/"
-                        
-                    }
+                    // Usar SCP para transferir el archivo .sql a la VPS
+                    sh "scp /home/jairo/databd.sql jairo@touristmap.es:/home/jairo/"
                 }
             }
         }
@@ -102,13 +77,12 @@ pipeline {
                 script {
                     sshagent(credentials: ['VPS_SSH']) {
                         // Actualizar repositorio
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@touristmap.es 'cd ${BUILD_DIR} && git pull'"
                         // Cambiar permisos a la carpeta /Keptn-k3s/wordpress
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R jairo:www-data ${BUILD_DIR}/wordpress/*'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@touristmap.es 'sudo chown -R jairo:www-data ${BUILD_DIR}/wordpress/*'"
                         // Comando para desplegar en el VPS
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
-
+                        sh "ssh -o StrictHostKeyChecking=no jairo@touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
                     }
                 }
             }
