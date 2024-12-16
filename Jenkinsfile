@@ -84,6 +84,19 @@ pipeline {
             }
         }
 
+        stage('Migración de la base de datos') {
+            steps {
+                script {
+                    sshagent(credentials: ['VPS_SSH']) {
+                    
+                        sh "cd ${BUILD_DIR} && ./scriptbackup.sh"
+                        sh "scp /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/"
+                        
+                    }
+                }
+            }
+        }
+
         stage('Deployment') {
             steps {
                 script {
