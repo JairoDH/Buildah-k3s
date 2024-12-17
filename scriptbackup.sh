@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Configuraciones de la base de datos
 WORDPRESS_DB_USER="wpuser"
