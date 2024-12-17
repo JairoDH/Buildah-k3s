@@ -91,7 +91,7 @@ pipeline {
                     sshagent(credentials: ['LOCAL_SSH']) {
 	                sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'ip a'"
                         sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
-                        sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'scp -r /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"          
+                        sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'scp -i /home/jairo/.ssh/github /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"          
                     }
                 }
             }
