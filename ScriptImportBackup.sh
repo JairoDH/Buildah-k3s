@@ -33,7 +33,7 @@ mysql -u "$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" -h "$MYSQL_DB_HOST" "$W
 # Comprobar si la importación fue exitosa
 if [ $? -eq 0 ]; then
   echo "La base de datos se importó correctamente."
-  /usr/sbin/apache2ctl -D FOREGROUND
+#  /usr/sbin/apache2ctl -D FOREGROUND
 else
   echo "Error: Falló la importación de la base de datos."
   exit 1
