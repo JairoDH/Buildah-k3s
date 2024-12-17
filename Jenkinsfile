@@ -107,7 +107,7 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R jairo:www-data ${BUILD_DIR}/wordpress/*'"
                         // Comando para desplegar en el VPS
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
-			sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sh /home/jairo/Keptn-k3s/ScriptImportBackup.sh
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sh /home/jairo/Keptn-k3s/ScriptImportBackup.sh
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
                     }
                 }
