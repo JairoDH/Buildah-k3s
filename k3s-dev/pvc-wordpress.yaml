@@ -11,7 +11,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/jairo/Keptn-k3s/wordpress/
+    path: /home/jairo/Buildah-k3s/wordpress/
 
 ---
 #apiVersion: v1

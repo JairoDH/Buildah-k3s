@@ -1,8 +1,8 @@
 pipeline {
     environment {
         IMAGE = "jairodh/wpimagen"
-        REPO_URL = "https://github.com/JairoDH/Keptn-k3s.git"
-        BUILD_DIR = "/home/jairo/Keptn-k3s"
+        REPO_URL = "https://github.com/JairoDH/Buildah-k3s.git"
+        BUILD_DIR = "/home/jairo/Buildah-k3s"
         KUBE_CONFIG = "/etc/rancher/k3s/k3s.yaml"
         DOCKER_HUB = credentials('docker_hub')
         GIT_BRANCH = "${git_branch}"
@@ -89,7 +89,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['LOCAL_SSH']) {
-                        sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'sh /home/jairo/Keptn-k3s/scriptbackup.sh'"
+                        sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'sh /home/jairo/Buildah-k3s/scriptbackup.sh'"
                         sh  "ssh -o StrictHostKeyChecking=no jairo@192.168.1.138 'scp -i /home/jairo/.ssh/github /home/jairo/databd.sql jairo@fekir.touristmap.es:/home/jairo/'"          
                     }
                 }
@@ -102,11 +102,11 @@ pipeline {
                     sshagent(credentials: ['VPS_SSH']) {
                         // Actualizar repositorio
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'cd ${BUILD_DIR} && git pull'"
-                        // Cambiar permisos a la carpeta /Keptn-k3s/wordpress
+                        // Cambiar permisos a la carpeta /Buildah-k3s/wordpress
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sudo chown -R jairo:www-data ${BUILD_DIR}/wordpress/*'"
                         // Comando para desplegar en el VPS
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/k3s-dev/'"
-                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sh /home/jairo/Keptn-k3s/ScriptImportBackup.sh'"
+                        sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'sh /home/jairo/Buildah-k3s/ScriptImportBackup.sh'"
                         sh "ssh -o StrictHostKeyChecking=no jairo@fekir.touristmap.es 'kubectl --kubeconfig=${KUBE_CONFIG} apply -f ${BUILD_DIR}/ingressprod.yaml'"
                     }
                 }
