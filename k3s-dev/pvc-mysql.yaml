@@ -19,7 +19,7 @@ spec:
 #kind: PersistentVolumeClaim
 #metadata:
 #  name: mysql-pvc
-#  labels:
+ # labels:
 #    app: wordpress
 #spec:
 #  accessModes:
@@ -28,4 +28,4 @@ spec:
 #    requests:
 #      storage: 5Gi
 #  storageClassName: manual
- # volumeName: mysql-pvc
+# volumeName: mysql-pvc
