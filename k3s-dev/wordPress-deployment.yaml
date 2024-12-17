@@ -49,5 +49,5 @@ spec:
       volumes:
         - name: wordpress-pv
           hostPath:
-            path: /home/jairo/Keptn-k3s/wordpress/
+            path: /home/jairo/Buildah-k3s/wordpress/
             type: Directory
