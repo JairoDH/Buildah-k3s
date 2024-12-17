@@ -23,6 +23,7 @@ fi
 
 echo "Reemplazando 'http://dev.touristmap.es' con 'https://www.touristmap.es' en el archivo SQL..."
 sed -i 's|http://dev.touristmap.es|https://www.touristmap.es|g' "$SQL_FILE"
+sed -i 's/\\-//g' "$SQL_FILE"
 
 # Importar la base de datos
 echo "Importando la base de datos..."
