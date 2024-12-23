@@ -2,7 +2,7 @@
 
 # Configuración de credenciales y base de datos
 WORDPRESS_DB_USER="wpuser"
-WORDPRESS_DB_PASSWORD="wp1994"
+WORDPRESS_DB_PASSWORD="password"
 WORDPRESS_DB_NAME="wordpress"
 MYSQL_DB_HOST=$(kubectl get svc mysql -o jsonpath='{.spec.clusterIP}')
 
