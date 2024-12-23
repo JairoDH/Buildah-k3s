@@ -1,9 +1,9 @@
 #!/bin/bash
 
 WORDPRESS_DB_USER="wpuser"
-WORDPRESS_DB_PASSWORD="wp1994"
+WORDPRESS_DB_PASSWORD="password"
 WORDPRESS_DB_NAME="wordpress"
-MYSQL_DB_HOST=10.43.242.80
+MYSQL_DB_HOST=IPcontainer
 #MYSQL_DB_HOST=$(kubectl get svc mysql -o jsonpath='{.spec.clusterIP}')
 
 # Realizar el volcado de la base de datos sin la opción '--no-column-statistics'
