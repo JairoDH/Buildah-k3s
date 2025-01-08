@@ -1,4 +1,4 @@
-# 🧩 Proyecto de Integración y Despliegue Continuo con Kubernetes, Jenkins, Buildah y WordPress
+# 🧩 Proyecto de Integración y Despliegue Continuo con Kubernetes, Jenkins y Buildah
 
 Este repositorio contiene los archivos necesarios para desplegar y gestionar una aplicación **WordPress** mediante **Kubernetes (K3s)** y un flujo de **Integración y Despliegue Continuo (CI/CD)** utilizando **Jenkins** y **Buildah** para la creación de imágenes de contenedores.
 
