@@ -16,10 +16,6 @@ El flujo de trabajo implementa:
 - Despliegue automatizado de **WordPress** y **MySQL** utilizando recursos de Kubernetes.
 - **Exposición de servicios** mediante un recurso **Ingress** y, en caso necesario, el uso de **ngrok** para pruebas temporales.
 
-El proyecto se despliega en dos dominios diferentes:
-- **Desarrollo**: [http://dev.touristmap.es](http://dev.touristmap.es)
-- **Producción**: [http://www.touristmap.es](http://www.touristmap.es)
-
 ---
 
 ## ⚙️ Tecnologías Utilizadas
